@@ -4,9 +4,8 @@ const { parseUplinkRequest } = require("./parser");
 
 const TTN_API_URL =
   "https://nam1.cloud.thethings.network/api/v3/as/applications/proyecto-huerta/devices/la66-prueba/down/replace";
-const TTN_API_KEY =
-  process.env.API_KEY_TTN ||
-  "NNSXS.6EIBLPA7BJAS6QCIUQSYPVZHBD6ADD7SCGMMRJA.34AMWYZNHEDTVQJPV6UJSTP7EW5SW4ZKWOTYRTK2NIDDL4R2BHYA";
+
+const TTN_API_KEY = process.env.API_KEY_TTN;
 
 const uplink = async (request, response) => {
   try {
