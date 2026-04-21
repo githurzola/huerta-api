@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart Agriculture Dashboard - Dark Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#10b981",
+                      "on-primary": "#064e3b",
+                      "tertiary-container": "#f77113",
+                      "primary-dim": "#059669",
+                      "on-surface": "#f8fafc",
+                      "surface-variant": "#334155",
+                      "surface": "#0f172a",
+                      "primary-container": "#065f46",
+                      "secondary": "#3b82f6",
+                      "surface-container-low": "#1e293b",
+                      "surface-dim": "#0f172a",
+                      "on-surface-variant": "#94a3b8",
+                      "surface-container": "#1e293b",
+                      "tertiary": "#fb923c",
+                      "surface-bright": "#1e293b",
+                      "outline-variant": "#475569",
+                      "primary": "#10b981",
+                      "error-dim": "#f87171",
+                      "on-error": "#450a0a",
+                      "tertiary-dim": "#fdba74",
+                      "on-secondary": "#eff6ff",
+                      "on-secondary-container": "#dbeafe",
+                      "error-container": "#991b1b",
+                      "on-primary-container": "#ecfdf5",
+                      "primary-fixed-dim": "#6ee7b7",
+                      "on-secondary-fixed": "#1e3a8a",
+                      "on-primary-fixed": "#064e3b",
+                      "inverse-surface": "#f8fafc",
+                      "inverse-on-surface": "#0f172a",
+                      "on-primary-fixed-variant": "#065f46",
+                      "outline": "#64748b",
+                      "background": "#0f172a",
+                      "error": "#ef4444",
+                      "on-tertiary-fixed-variant": "#7c2d12",
+                      "on-secondary-fixed-variant": "#1d4ed8",
+                      "on-background": "#f8fafc",
+                      "on-tertiary-container": "#ffedd5",
+                      "secondary-dim": "#2563eb",
+                      "secondary-container": "#1e3a8a",
+                      "surface-container-high": "#334155",
+                      "on-tertiary-fixed": "#ffedd5",
+                      "on-tertiary": "#431407",
+                      "inverse-primary": "#10b981",
+                      "secondary-fixed": "#dbeafe",
+                      "tertiary-fixed": "#ffedd5",
+                      "primary-fixed": "#d1fae5",
+                      "surface-container-highest": "#475569",
+                      "tertiary-fixed-dim": "#fed7aa",
+                      "secondary-fixed-dim": "#bfdbfe",
+                      "surface-container-lowest": "#020617",
+                      "on-error-container": "#fee2e2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+        }
+        .headline-font {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-surface">
+<!-- Navigation Drawer -->
+<aside class="h-screen w-72 fixed left-0 top-0 bg-surface flex flex-col gap-2 p-6 z-40 border-r border-slate-800">
+<div class="mb-8 px-2">
+<span class="font-['Manrope'] font-bold text-lg text-on-surface">Ecosystems</span>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-primary font-semibold rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-['Inter'] text-sm tracking-wide">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="terrain">terrain</span>
+<span class="font-['Inter'] text-sm tracking-wide">Field North</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="agriculture">agriculture</span>
+<span class="font-['Inter'] text-sm tracking-wide">Field South</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="potted_plant">potted_plant</span>
+<span class="font-['Inter'] text-sm tracking-wide">Greenhouse A</span>
+</a>
+</nav>
+</aside>
+<div class="ml-72 flex-1">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface flex justify-between items-center h-16 px-8 w-full max-w-full border-b border-slate-800">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="eco">eco</span>
+<h1 class="font-['Manrope'] text-xl font-extrabold text-primary tracking-tight">Smart Agriculture Dashboard</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden bg-surface-container border-2 border-primary shadow-sm">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional agronomist smiling, outdoor natural lighting with greenery in soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzeAAxAFacjitxKxKgVkk9pVJs0FibPc2IXceQ2axgeJKmCh3NhIZIQyU1hRrNW3vat4cCixLpZzhY_PYaUJUdx9TuvmBJpLUFzO9Ht-6QUQnlPGt8boTk10Bwi_kkhMoiiDXx7MrBJ6mLA85nL-263KKs4oVN9j8BFkHNmhJvqadxn0pSpfDl2XQPXCBzb8pWcS4gxDea0vdAgK3MHYqotdJ6GRwiQs5vSX-UdOAymOPAkuxe7-dzcQ-fk8yvZpPG3P_7fTOCDRA"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="p-8 space-y-12 bg-surface">
+<!-- Summary Section (Bento Grid Style) -->
+<section class="space-y-6">
+<div class="flex items-center gap-2">
+<div class="w-1 h-6 bg-primary rounded-full"></div>
+<h2 class="headline-font text-2xl font-bold tracking-tight text-on-surface">Average Environmental Metrics</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Soil Temperature -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-2xl relative overflow-hidden group border border-slate-800">
+<div class="flex justify-between items-start relative z-10">
+<div>
+<p class="text-on-surface-variant text-sm font-medium uppercase tracking-wider mb-2">Soil Temp</p>
+<h3 class="headline-font text-4xl font-extrabold text-tertiary">22.4<span class="text-xl font-bold ml-1">°C</span></h3>
+</div>
+<div class="bg-tertiary/10 p-3 rounded-full">
+<span class="material-symbols-outlined text-tertiary text-3xl" data-icon="thermostat">thermostat</span>
+</div>
+</div>
+<div class="mt-6 flex items-center gap-2 relative z-10">
+<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-900/40 text-emerald-400">+1.2° since dawn</span>
+</div>
+</div>
+<!-- Moisture -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-2xl relative overflow-hidden group border border-slate-800">
+<div class="flex justify-between items-start relative z-10">
+<div>
+<p class="text-on-surface-variant text-sm font-medium uppercase tracking-wider mb-2">Avg. Moisture</p>
+<h3 class="headline-font text-4xl font-extrabold text-secondary">64<span class="text-xl font-bold ml-1">%</span></h3>
+</div>
+<div class="bg-secondary/10 p-3 rounded-full">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="water_drop">water_drop</span>
+</div>
+</div>
+<div class="mt-6 flex items-center gap-2 relative z-10">
+<span class="text-xs font-bold px-2 py-0.5 rounded-full bg-primary-container text-primary">Optimal Range</span>
+</div>
+</div>
+<!-- Conductivity -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-2xl relative overflow-hidden group border border-slate-800">
+<div class="flex justify-between items-start relative z-10">
+<div>
+<p class="text-on-surface-variant text-sm font-medium uppercase tracking-wider mb-2">Conductivity</p>
+<h3 class="headline-font text-4xl font-extrabold text-primary">1.8<span class="text-xl font-bold ml-1">mS/cm</span></h3>
+</div>
+<div class="bg-primary/10 p-3 rounded-full">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="electric_bolt">electric_bolt</span>
+</div>
+</div>
+<div class="mt-6 flex items-center gap-2 relative z-10">
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-primary w-3/4 h-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trends Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8 bg-surface-container-lowest p-8 rounded-full shadow-2xl border border-slate-800">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h2 class="headline-font text-xl font-bold text-on-surface">Real-time Trends</h2>
+<p class="text-on-surface-variant text-sm">Environmental tracking (24h Window)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<span class="text-xs font-semibold text-on-surface-variant uppercase tracking-tighter">Temp</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span class="text-xs font-semibold text-on-surface-variant uppercase tracking-tighter">Humidity</span>
+</div>
+</div>
+</div>
+<!-- Simulated Chart Canvas -->
+<div class="relative h-64 w-full flex items-end gap-1">
+<div class="flex-1 bg-surface-container rounded-t-lg h-[40%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[45%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[60%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[75%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[70%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[85%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[90%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[80%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[65%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[50%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[55%]"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-[40%]"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<svg class="w-full h-full opacity-80" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,80 Q25,20 50,50 T100,30" fill="none" stroke="#fb923c" stroke-width="2"></path>
+<path d="M0,60 Q25,80 50,40 T100,50" fill="none" stroke="#3b82f6" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="mt-4 flex justify-between px-2 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
+<span>00:00</span>
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>Now</span>
+</div>
+</div>
+<!-- Sensor Legend / Mini Map -->
+<div class="lg:col-span-4 bg-primary-container p-8 rounded-full text-on-primary-container flex flex-col justify-between overflow-hidden relative border border-emerald-800">
+<div class="relative z-10">
+<h3 class="headline-font text-2xl font-bold mb-2">Field View</h3>
+<p class="text-on-primary-container/80 text-sm">North Zone deployment showing high density coverage for the harvest period.</p>
+</div>
+<div class="relative h-40 mt-6 rounded-xl overflow-hidden shadow-inner grayscale contrast-150">
+<img alt="Field map" class="w-full h-full object-cover" data-alt="Overhead satellite view of organized agricultural fields in shades of green and brown with geometric boundary lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVOZ5tEBgefJKZT_CH6cI3ZuRrDxBQo_2mT29PM3h9Wvn2Nel8exkbts-6gSbcU4naX_tjdEmzyO7GHRH-_BlT1YKslpBIY3_-BbZgw-gGst9YLOSJLFbk9yspi_yPLzdnWbs6_JjfOvMQcC-lGaMlKNvDDVgxIsJ367bPqkJJ3bVlyimRxWKmzTWaYtnRQn3UCJ8qFMAKypt2XkDQzXgdO6pY2Ls5PuizXmAQBxXaRsN0HX6lBdBG529Izy_DtEHqXXFqP6Pz7Fg"/>
+<div class="absolute inset-0 bg-primary/20"></div>
+<div class="absolute top-1/4 left-1/3 w-3 h-3 bg-white rounded-full animate-ping"></div>
+<div class="absolute top-1/4 left-1/3 w-3 h-3 bg-white rounded-full"></div>
+</div>
+<button class="mt-8 py-3 bg-primary text-on-primary font-bold rounded-lg text-sm transition hover:bg-primary-dim">
+                        Manage Locations
+                    </button>
+</div>
+</section>
+<!-- Active Sensors Section -->
+<section class="space-y-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-1 h-6 bg-primary rounded-full"></div>
+<h2 class="headline-font text-2xl font-bold text-on-surface">Active Sensors</h2>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold text-sm">
+                        View All Sensors <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+<!-- Sensor 01 -->
+<div class="bg-surface-container-lowest p-6 rounded-full border-l-4 border-primary shadow-2xl border-y border-r border-slate-800">
+<div class="flex justify-between mb-4">
+<div>
+<h4 class="font-bold text-on-surface">Sensor 01</h4>
+<p class="text-xs text-on-surface-variant font-medium">North Zone - Row 12</p>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-bold text-primary uppercase">Active</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="device_thermostat">device_thermostat</span>
+<span class="text-sm font-bold">21.8°C</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="humidity_low">humidity_low</span>
+<span class="text-sm font-bold">62%</span>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center border-t border-slate-800 pt-4">
+<span class="text-[10px] text-on-surface-variant">Last update: 2m ago</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="settings">settings</span>
+</div>
+</div>
+<!-- Sensor 02 (Subtle Alert State) -->
+<div class="bg-surface-container-lowest p-6 rounded-full border-l-4 border-error shadow-2xl relative border-y border-r border-slate-800">
+<div class="absolute -top-2 -right-2 px-2 py-1 bg-error text-white text-[10px] font-bold rounded-lg shadow-lg">LOW MOISTURE</div>
+<div class="flex justify-between mb-4">
+<div>
+<h4 class="font-bold text-on-surface">Sensor 02</h4>
+<p class="text-xs text-on-surface-variant font-medium">South Zone - Row 04</p>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-bold text-primary uppercase">Active</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="device_thermostat">device_thermostat</span>
+<span class="text-sm font-bold">23.1°C</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm" data-icon="water_drop">water_drop</span>
+<span class="text-sm font-bold text-error">42%</span>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center border-t border-slate-800 pt-4">
+<span class="text-[10px] text-on-surface-variant">Last update: 5m ago</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="settings">settings</span>
+</div>
+</div>
+<!-- Sensor 03 -->
+<div class="bg-surface-container-lowest p-6 rounded-full border-l-4 border-primary shadow-2xl border-y border-r border-slate-800">
+<div class="flex justify-between mb-4">
+<div>
+<h4 class="font-bold text-on-surface">Sensor 03</h4>
+<p class="text-xs text-on-surface-variant font-medium">North Zone - Row 28</p>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-bold text-primary uppercase">Active</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="device_thermostat">device_thermostat</span>
+<span class="text-sm font-bold">22.4°C</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="humidity_mid">humidity_mid</span>
+<span class="text-sm font-bold">66%</span>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center border-t border-slate-800 pt-4">
+<span class="text-[10px] text-on-surface-variant">Last update: 12m ago</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="settings">settings</span>
+</div>
+</div>
+<!-- Sensor 04 -->
+<div class="bg-surface-container-lowest p-6 rounded-full border-l-4 border-primary shadow-2xl border-y border-r border-slate-800">
+<div class="flex justify-between mb-4">
+<div>
+<h4 class="font-bold text-on-surface">Sensor 04</h4>
+<p class="text-xs text-on-surface-variant font-medium">Greenhouse A - Bench 1</p>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-bold text-primary uppercase">Active</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="device_thermostat">device_thermostat</span>
+<span class="text-sm font-bold">24.5°C</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="humidity_high">humidity_high</span>
+<span class="text-sm font-bold">78%</span>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center border-t border-slate-800 pt-4">
+<span class="text-[10px] text-on-surface-variant">Last update: Just now</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="settings">settings</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-full shadow-2xl flex items-center justify-center transition hover:scale-105 active:scale-95 group z-50">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-300" data-icon="add">add</span>
+</button>
+</body></html>
