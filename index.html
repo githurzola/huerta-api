@@ -1,32 +1,40 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Huerta Garzones — Panel de Control</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --bg: #0d1117;
       --bg2: #161b22;
       --bg3: #21262d;
-      --border: rgba(255,255,255,0.08);
-      --border2: rgba(255,255,255,0.14);
+      --border: rgba(255, 255, 255, 0.08);
+      --border2: rgba(255, 255, 255, 0.14);
       --text: #e6edf3;
       --text2: #8b949e;
       --text3: #484f58;
       --green: #3fb950;
-      --green-bg: rgba(63,185,80,0.12);
+      --green-bg: rgba(63, 185, 80, 0.12);
       --teal: #39d0b0;
-      --teal-bg: rgba(57,208,176,0.10);
+      --teal-bg: rgba(57, 208, 176, 0.10);
       --amber: #d29922;
-      --amber-bg: rgba(210,153,34,0.12);
+      --amber-bg: rgba(210, 153, 34, 0.12);
       --red: #f85149;
-      --red-bg: rgba(248,81,73,0.12);
+      --red-bg: rgba(248, 81, 73, 0.12);
       --blue: #58a6ff;
-      --blue-bg: rgba(88,166,255,0.10);
+      --blue-bg: rgba(88, 166, 255, 0.10);
       --accent: #3fb950;
       --font: 'Syne', sans-serif;
       --mono: 'DM Mono', monospace;
@@ -53,20 +61,24 @@
     #login-screen::before {
       content: '';
       position: absolute;
-      width: 600px; height: 600px;
+      width: 600px;
+      height: 600px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(63,185,80,0.06) 0%, transparent 70%);
-      top: -100px; left: -100px;
+      background: radial-gradient(circle, rgba(63, 185, 80, 0.06) 0%, transparent 70%);
+      top: -100px;
+      left: -100px;
       pointer-events: none;
     }
 
     #login-screen::after {
       content: '';
       position: absolute;
-      width: 400px; height: 400px;
+      width: 400px;
+      height: 400px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(57,208,176,0.05) 0%, transparent 70%);
-      bottom: -50px; right: -50px;
+      background: radial-gradient(circle, rgba(57, 208, 176, 0.05) 0%, transparent 70%);
+      bottom: -50px;
+      right: -50px;
       pointer-events: none;
     }
 
@@ -89,14 +101,20 @@
     }
 
     .login-logo-icon {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       background: var(--green-bg);
-      border: 1px solid rgba(63,185,80,0.3);
+      border: 1px solid rgba(63, 185, 80, 0.3);
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .leaf-svg { width: 20px; height: 20px; }
+    .leaf-svg {
+      width: 20px;
+      height: 20px;
+    }
 
     .login-logo span {
       font-size: 18px;
@@ -119,7 +137,9 @@
       font-family: var(--mono);
     }
 
-    .form-group { margin-bottom: 1.25rem; }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
 
     .form-group label {
       display: block;
@@ -145,7 +165,9 @@
       transition: border-color 0.2s;
     }
 
-    .form-group input:focus { border-color: var(--green); }
+    .form-group input:focus {
+      border-color: var(--green);
+    }
 
     .login-error {
       font-size: 13px;
@@ -170,10 +192,14 @@
       transition: opacity 0.2s;
     }
 
-    .btn-login:hover { opacity: 0.85; }
+    .btn-login:hover {
+      opacity: 0.85;
+    }
 
     /* DASHBOARD */
-    #dashboard { display: none; }
+    #dashboard {
+      display: none;
+    }
 
     header {
       display: flex;
@@ -182,19 +208,26 @@
       padding: 1rem 2rem;
       border-bottom: 1px solid var(--border);
       background: var(--bg2);
-      position: sticky; top: 0; z-index: 100;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .header-left {
-      display: flex; align-items: center; gap: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .header-logo {
-      width: 32px; height: 32px;
+      width: 32px;
+      height: 32px;
       background: var(--green-bg);
-      border: 1px solid rgba(63,185,80,0.3);
+      border: 1px solid rgba(63, 185, 80, 0.3);
       border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .header-title {
@@ -210,10 +243,15 @@
       font-family: var(--mono);
     }
 
-    .header-right { display: flex; align-items: center; gap: 12px; }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
     .status-dot {
-      width: 8px; height: 8px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--green);
       box-shadow: 0 0 6px var(--green);
@@ -221,8 +259,15 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
     }
 
     .status-label {
@@ -243,9 +288,16 @@
       transition: all 0.2s;
     }
 
-    .btn-logout:hover { border-color: var(--red); color: var(--red); }
+    .btn-logout:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
 
-    .main { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+    .main {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
     /* SECTION LABEL */
     .section-label {
@@ -274,7 +326,9 @@
       transition: border-color 0.2s;
     }
 
-    .stat-card:hover { border-color: var(--border2); }
+    .stat-card:hover {
+      border-color: var(--border2);
+    }
 
     .stat-label {
       font-size: 11px;
@@ -308,9 +362,17 @@
       margin-top: 8px;
     }
 
-    .trend-up { color: var(--green); }
-    .trend-down { color: var(--red); }
-    .trend-neutral { color: var(--text3); }
+    .trend-up {
+      color: var(--green);
+    }
+
+    .trend-down {
+      color: var(--red);
+    }
+
+    .trend-neutral {
+      color: var(--text3);
+    }
 
     /* TWO COL LAYOUT */
     .two-col {
@@ -320,7 +382,11 @@
       margin-bottom: 2rem;
     }
 
-    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
 
     /* SENSOR CARD */
     .sensor-card {
@@ -359,10 +425,29 @@
       font-weight: 500;
     }
 
-    .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(63,185,80,0.2); }
-    .badge-red { background: var(--red-bg); color: var(--red); border: 1px solid rgba(248,81,73,0.2); }
-    .badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(210,153,34,0.2); }
-    .badge-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(88,166,255,0.2); }
+    .badge-green {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid rgba(63, 185, 80, 0.2);
+    }
+
+    .badge-red {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid rgba(248, 81, 73, 0.2);
+    }
+
+    .badge-amber {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid rgba(210, 153, 34, 0.2);
+    }
+
+    .badge-blue {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+    }
 
     .sensor-metrics {
       display: grid;
@@ -412,7 +497,9 @@
     }
 
     .bat-bar-wrap {
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .bat-label {
@@ -422,7 +509,8 @@
     }
 
     .bat-bar {
-      width: 60px; height: 6px;
+      width: 60px;
+      height: 6px;
       background: var(--bg3);
       border-radius: 3px;
       overflow: hidden;
@@ -458,21 +546,28 @@
     }
 
     .chart-legend {
-      display: flex; gap: 16px;
+      display: flex;
+      gap: 16px;
     }
 
     .legend-item {
-      display: flex; align-items: center; gap: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 12px;
       font-family: var(--mono);
       color: var(--text2);
     }
 
     .legend-dot {
-      width: 8px; height: 8px; border-radius: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
     }
 
-    canvas { width: 100% !important; }
+    canvas {
+      width: 100% !important;
+    }
 
     /* IRRIGATION */
     .irrigation-grid {
@@ -493,12 +588,14 @@
     }
 
     .zone-card.active {
-      border-color: rgba(63,185,80,0.4);
-      background: linear-gradient(135deg, var(--bg2) 0%, rgba(63,185,80,0.04) 100%);
+      border-color: rgba(63, 185, 80, 0.4);
+      background: linear-gradient(135deg, var(--bg2) 0%, rgba(63, 185, 80, 0.04) 100%);
     }
 
     .zone-card-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       margin-bottom: 1rem;
     }
 
@@ -509,7 +606,9 @@
     }
 
     .valve-indicator {
-      width: 10px; height: 10px; border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
       background: var(--text3);
       transition: background 0.3s, box-shadow 0.3s;
     }
@@ -526,7 +625,10 @@
       margin-bottom: 4px;
     }
 
-    .zone-stat span { color: var(--text); font-weight: 500; }
+    .zone-stat span {
+      color: var(--text);
+      font-weight: 500;
+    }
 
     .btn-valve {
       width: 100%;
@@ -543,9 +645,21 @@
       transition: all 0.2s;
     }
 
-    .btn-valve:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
-    .btn-valve.active-btn { border-color: var(--red); color: var(--red); background: var(--red-bg); }
-    .btn-valve.active-btn:hover { opacity: 0.8; }
+    .btn-valve:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: var(--green-bg);
+    }
+
+    .btn-valve.active-btn {
+      border-color: var(--red);
+      color: var(--red);
+      background: var(--red-bg);
+    }
+
+    .btn-valve.active-btn:hover {
+      opacity: 0.8;
+    }
 
     /* ACTIVITY LOG */
     .log-card {
@@ -562,7 +676,9 @@
       font-size: 14px;
       font-weight: 600;
       color: var(--text);
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .log-count {
@@ -582,13 +698,37 @@
       transition: background 0.15s;
     }
 
-    .log-item:last-child { border-bottom: none; }
-    .log-item:hover { background: var(--bg3); }
+    .log-item:last-child {
+      border-bottom: none;
+    }
 
-    .log-time { color: var(--text3); min-width: 80px; font-size: 12px; }
-    .log-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .log-msg { color: var(--text2); flex: 1; }
-    .log-tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+    .log-item:hover {
+      background: var(--bg3);
+    }
+
+    .log-time {
+      color: var(--text3);
+      min-width: 80px;
+      font-size: 12px;
+    }
+
+    .log-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .log-msg {
+      color: var(--text2);
+      flex: 1;
+    }
+
+    .log-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
 
     /* FOOTER */
     footer {
@@ -599,509 +739,529 @@
       align-items: center;
     }
 
-    .footer-text { font-size: 12px; font-family: var(--mono); color: var(--text3); }
+    .footer-text {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--text3);
+    }
   </style>
 </head>
+
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen">
-  <div class="login-box">
-    <div class="login-logo">
-      <div class="login-logo-icon">
-        <svg class="leaf-svg" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2C6 2 3 8 3 12c0 5 4 9 9 9s9-4 9-9c0-6-4-10-9-10z" fill="#3fb950" opacity="0.3"/>
-          <path d="M12 2c0 0-2 6-2 10 0 3 1 6 2 9" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M12 8c-2-1-5-1-7 2" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M12 13c2-1 5 0 6 3" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <div class="login-logo-icon">
+          <svg class="leaf-svg" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6 2 3 8 3 12c0 5 4 9 9 9s9-4 9-9c0-6-4-10-9-10z" fill="#3fb950" opacity="0.3" />
+            <path d="M12 2c0 0-2 6-2 10 0 3 1 6 2 9" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M12 8c-2-1-5-1-7 2" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M12 13c2-1 5 0 6 3" stroke="#3fb950" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+        <span>Huerta Garzones</span>
       </div>
-      <span>Huerta Garzones</span>
+      <h2>Iniciar sesión</h2>
+      <p>Panel de monitoreo y control</p>
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" id="inp-user" placeholder="admin" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="inp-pass" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <div class="login-error" id="login-error">Usuario o contraseña incorrectos</div>
+      <button class="btn-login" onclick="doLogin()">Ingresar</button>
     </div>
-    <h2>Iniciar sesión</h2>
-    <p>Panel de monitoreo y control</p>
-    <div class="form-group">
-      <label>Usuario</label>
-      <input type="text" id="inp-user" placeholder="admin" autocomplete="username" />
-    </div>
-    <div class="form-group">
-      <label>Contraseña</label>
-      <input type="password" id="inp-pass" placeholder="••••••••" autocomplete="current-password" />
-    </div>
-    <div class="login-error" id="login-error">Usuario o contraseña incorrectos</div>
-    <button class="btn-login" onclick="doLogin()">Ingresar</button>
-  </div>
-</div>
-
-<!-- DASHBOARD -->
-<div id="dashboard">
-  <header>
-    <div class="header-left">
-      <div class="header-logo">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2c0 0-2 6-2 10 0 3 1 6 2 9" stroke="#3fb950" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M12 8c-2-1-5-1-7 2" stroke="#3fb950" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M12 13c2-1 5 0 6 3" stroke="#3fb950" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div>
-        <div class="header-title">Huerta Garzones</div>
-        <div class="header-subtitle">Sistema de monitoreo IoT</div>
-      </div>
-    </div>
-    <div class="header-right">
-      <div class="status-dot"></div>
-      <span class="status-label">En línea</span>
-      <button class="btn-logout" onclick="doLogout()">Salir</button>
-    </div>
-  </header>
-
-  <div class="main">
-
-    <!-- STATS GLOBALES -->
-    <div class="section-label">Resumen general</div>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">Temp. suelo prom.</div>
-        <div class="stat-value" id="avg-temp">--<span class="stat-unit"> °C</span></div>
-        <div class="stat-trend trend-neutral" id="temp-trend">Cargando...</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Humedad prom.</div>
-        <div class="stat-value" id="avg-hum">--<span class="stat-unit"> %</span></div>
-        <div class="stat-trend trend-neutral" id="hum-trend">Cargando...</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Sensores activos</div>
-        <div class="stat-value" id="sensors-active">--</div>
-        <div class="stat-trend trend-neutral">de 2 sensores</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Última irrigación</div>
-        <div class="stat-value" style="font-size:18px;" id="last-irr">--</div>
-        <div class="stat-trend trend-neutral" id="last-irr-zone">Zona desconocida</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Mediciones hoy</div>
-        <div class="stat-value" id="meas-count">--</div>
-        <div class="stat-trend trend-neutral">total registros</div>
-      </div>
-    </div>
-
-    <!-- SENSORES -->
-    <div class="section-label">Sensores en campo</div>
-    <div class="two-col" style="margin-bottom:2rem;">
-
-      <div class="sensor-card">
-        <div class="sensor-card-header">
-          <div>
-            <div class="sensor-name">sensor-4-huerta</div>
-            <div class="sensor-zone">Zona A</div>
-          </div>
-          <span class="badge badge-green" id="s4-status">Activo</span>
-        </div>
-        <div class="sensor-metrics">
-          <div class="metric-cell">
-            <div class="metric-cell-label">Temp. suelo</div>
-            <div class="metric-cell-value" id="s4-temp">--<span class="metric-cell-unit"> °C</span></div>
-          </div>
-          <div class="metric-cell">
-            <div class="metric-cell-label">Humedad</div>
-            <div class="metric-cell-value" id="s4-hum">--<span class="metric-cell-unit"> %</span></div>
-          </div>
-          <div class="metric-cell">
-            <div class="metric-cell-label">Conductividad</div>
-            <div class="metric-cell-value" id="s4-cond">--<span class="metric-cell-unit"> µS</span></div>
-          </div>
-          <div class="metric-cell">
-            <div class="metric-cell-label">Batería</div>
-            <div class="metric-cell-value" id="s4-bat">--<span class="metric-cell-unit"> V</span></div>
-          </div>
-        </div>
-        <div class="sensor-footer">
-          <span class="last-update" id="s4-time">Sin datos</span>
-          <div class="bat-bar-wrap">
-            <span class="bat-label">BAT</span>
-            <div class="bat-bar"><div class="bat-fill" id="s4-batbar" style="width:0%"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sensor-card">
-        <div class="sensor-card-header">
-          <div>
-            <div class="sensor-name">sensor-5</div>
-            <div class="sensor-zone">Zona B</div>
-          </div>
-          <span class="badge badge-green" id="s5-status">Activo</span>
-        </div>
-        <div class="sensor-metrics">
-          <div class="metric-cell">
-            <div class="metric-cell-label">Temp. suelo</div>
-            <div class="metric-cell-value" id="s5-temp">--<span class="metric-cell-unit"> °C</span></div>
-          </div>
-          <div class="metric-cell">
-            <div class="metric-cell-label">Humedad</div>
-            <div class="metric-cell-value" id="s5-hum">--<span class="metric-cell-unit"> %</span></div>
-          </div>
-          <div class="metric-cell">
-            <div class="metric-cell-label">Conductividad</div>
-            <div class="metric-cell-value" id="s5-cond">--<span class="metric-cell-unit"> µS</span></div>
-          </div>
-          <div class="metric-cell">
-            <div class="metric-cell-label">Batería</div>
-            <div class="metric-cell-value" id="s5-bat">--<span class="metric-cell-unit"> V</span></div>
-          </div>
-        </div>
-        <div class="sensor-footer">
-          <span class="last-update" id="s5-time">Sin datos</span>
-          <div class="bat-bar-wrap">
-            <span class="bat-label">BAT</span>
-            <div class="bat-bar"><div class="bat-fill" id="s5-batbar" style="width:0%"></div></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- GRAFICAS -->
-    <div class="chart-card">
-      <div class="chart-header">
-        <span class="chart-title">Temperatura del suelo — últimas 24h</span>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#3fb950"></div>Zona A</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#58a6ff"></div>Zona B</div>
-        </div>
-      </div>
-      <canvas id="tempChart" height="80"></canvas>
-    </div>
-
-    <div class="chart-card">
-      <div class="chart-header">
-        <span class="chart-title">Humedad del suelo — últimas 24h</span>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#39d0b0"></div>Zona A</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#d29922"></div>Zona B</div>
-        </div>
-      </div>
-      <canvas id="humChart" height="80"></canvas>
-    </div>
-
-    <!-- ELECTROVALVULAS -->
-    <div class="section-label">Control de electroválvulas</div>
-    <div class="irrigation-grid">
-      <div class="zone-card" id="zone-a-card">
-        <div class="zone-card-top">
-          <div class="zone-card-name">Zona A</div>
-          <div class="valve-indicator" id="valve-a"></div>
-        </div>
-        <div class="zone-stat">sensor: <span>sensor-4-huerta</span></div>
-        <div class="zone-stat">estado: <span id="valve-a-state">Cerrada</span></div>
-        <div class="zone-stat">última activación: <span id="valve-a-time">--</span></div>
-        <button class="btn-valve" id="btn-valve-a" onclick="toggleValve('A')">Abrir válvula</button>
-      </div>
-      <div class="zone-card" id="zone-b-card">
-        <div class="zone-card-top">
-          <div class="zone-card-name">Zona B</div>
-          <div class="valve-indicator" id="valve-b"></div>
-        </div>
-        <div class="zone-stat">sensor: <span>sensor-5</span></div>
-        <div class="zone-stat">estado: <span id="valve-b-state">Cerrada</span></div>
-        <div class="zone-stat">última activación: <span id="valve-b-time">--</span></div>
-        <button class="btn-valve" id="btn-valve-b" onclick="toggleValve('B')">Abrir válvula</button>
-      </div>
-      <div class="zone-card" id="zone-c-card">
-        <div class="zone-card-top">
-          <div class="zone-card-name">Zona C</div>
-          <div class="valve-indicator" id="valve-c"></div>
-        </div>
-        <div class="zone-stat">sensor: <span>--</span></div>
-        <div class="zone-stat">estado: <span id="valve-c-state">Cerrada</span></div>
-        <div class="zone-stat">última activación: <span id="valve-c-time">--</span></div>
-        <button class="btn-valve" id="btn-valve-c" onclick="toggleValve('C')">Abrir válvula</button>
-      </div>
-      <div class="zone-card" id="zone-d-card">
-        <div class="zone-card-top">
-          <div class="zone-card-name">Zona D</div>
-          <div class="valve-indicator" id="valve-d"></div>
-        </div>
-        <div class="zone-stat">sensor: <span>--</span></div>
-        <div class="zone-stat">estado: <span id="valve-d-state">Cerrada</span></div>
-        <div class="zone-stat">última activación: <span id="valve-d-time">--</span></div>
-        <button class="btn-valve" id="btn-valve-d" onclick="toggleValve('D')">Abrir válvula</button>
-      </div>
-      <div class="zone-card" id="zone-e-card">
-        <div class="zone-card-top">
-          <div class="zone-card-name">Zona E</div>
-          <div class="valve-indicator" id="valve-e"></div>
-        </div>
-        <div class="zone-stat">sensor: <span>--</span></div>
-        <div class="zone-stat">estado: <span id="valve-e-state">Cerrada</span></div>
-        <div class="zone-stat">última activación: <span id="valve-e-time">--</span></div>
-        <button class="btn-valve" id="btn-valve-e" onclick="toggleValve('E')">Abrir válvula</button>
-      </div>
-    </div>
-
-    <!-- LOG DE ACTIVIDAD -->
-    <div class="section-label">Registro de actividad</div>
-    <div class="log-card">
-      <div class="log-header">
-        Últimos eventos
-        <span class="log-count" id="log-count">0 eventos</span>
-      </div>
-      <div id="log-list">
-        <div class="log-item">
-          <span class="log-time">--:--</span>
-          <div class="log-dot" style="background:var(--text3)"></div>
-          <span class="log-msg">Esperando datos de Firebase...</span>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <footer>
-    <span class="footer-text">Huerta Garzones © 2026 — Sistema LoRaWAN / TTN / Firebase</span>
-    <span class="footer-text" id="footer-time">--</span>
-  </footer>
-</div>
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+    <header>
+      <div class="header-left">
+        <div class="header-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2c0 0-2 6-2 10 0 3 1 6 2 9" stroke="#3fb950" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M12 8c-2-1-5-1-7 2" stroke="#3fb950" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M12 13c2-1 5 0 6 3" stroke="#3fb950" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div>
+          <div class="header-title">Huerta Garzones</div>
+          <div class="header-subtitle">Sistema de monitoreo IoT</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="status-dot"></div>
+        <span class="status-label">En línea</span>
+        <button class="btn-logout" onclick="doLogout()">Salir</button>
+      </div>
+    </header>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
-  window.doLogin = function() {
-    const u = document.getElementById('inp-user').value.trim();
-    const p = document.getElementById('inp-pass').value;
-    const USERS = { admin: 'huerta2026', operador: 'zona123' };
-    const err = document.getElementById('login-error');
-    if (USERS[u] && USERS[u] === p) {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      if (window._initDashboard) window._initDashboard();
-    } else {
-      err.style.display = 'block';
-      setTimeout(() => err.style.display = 'none', 3000);
+    <div class="main">
+
+      <!-- STATS GLOBALES -->
+      <div class="section-label">Resumen general</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Temp. suelo prom.</div>
+          <div class="stat-value" id="avg-temp">--<span class="stat-unit"> °C</span></div>
+          <div class="stat-trend trend-neutral" id="temp-trend">Cargando...</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Humedad prom.</div>
+          <div class="stat-value" id="avg-hum">--<span class="stat-unit"> %</span></div>
+          <div class="stat-trend trend-neutral" id="hum-trend">Cargando...</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Sensores activos</div>
+          <div class="stat-value" id="sensors-active">--</div>
+          <div class="stat-trend trend-neutral">de 2 sensores</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Última irrigación</div>
+          <div class="stat-value" style="font-size:18px;" id="last-irr">--</div>
+          <div class="stat-trend trend-neutral" id="last-irr-zone">Zona desconocida</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Mediciones hoy</div>
+          <div class="stat-value" id="meas-count">--</div>
+          <div class="stat-trend trend-neutral">total registros</div>
+        </div>
+      </div>
+
+      <!-- SENSORES -->
+      <div class="section-label">Sensores en campo</div>
+      <div class="two-col" style="margin-bottom:2rem;">
+
+        <div class="sensor-card">
+          <div class="sensor-card-header">
+            <div>
+              <div class="sensor-name">sensor-4-huerta</div>
+              <div class="sensor-zone">Zona A</div>
+            </div>
+            <span class="badge badge-green" id="s4-status">Activo</span>
+          </div>
+          <div class="sensor-metrics">
+            <div class="metric-cell">
+              <div class="metric-cell-label">Temp. suelo</div>
+              <div class="metric-cell-value" id="s4-temp">--<span class="metric-cell-unit"> °C</span></div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-cell-label">Humedad</div>
+              <div class="metric-cell-value" id="s4-hum">--<span class="metric-cell-unit"> %</span></div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-cell-label">Conductividad</div>
+              <div class="metric-cell-value" id="s4-cond">--<span class="metric-cell-unit"> µS</span></div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-cell-label">Batería</div>
+              <div class="metric-cell-value" id="s4-bat">--<span class="metric-cell-unit"> V</span></div>
+            </div>
+          </div>
+          <div class="sensor-footer">
+            <span class="last-update" id="s4-time">Sin datos</span>
+            <div class="bat-bar-wrap">
+              <span class="bat-label">BAT</span>
+              <div class="bat-bar">
+                <div class="bat-fill" id="s4-batbar" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-card-header">
+            <div>
+              <div class="sensor-name">sensor-5</div>
+              <div class="sensor-zone">Zona B</div>
+            </div>
+            <span class="badge badge-green" id="s5-status">Activo</span>
+          </div>
+          <div class="sensor-metrics">
+            <div class="metric-cell">
+              <div class="metric-cell-label">Temp. suelo</div>
+              <div class="metric-cell-value" id="s5-temp">--<span class="metric-cell-unit"> °C</span></div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-cell-label">Humedad</div>
+              <div class="metric-cell-value" id="s5-hum">--<span class="metric-cell-unit"> %</span></div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-cell-label">Conductividad</div>
+              <div class="metric-cell-value" id="s5-cond">--<span class="metric-cell-unit"> µS</span></div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-cell-label">Batería</div>
+              <div class="metric-cell-value" id="s5-bat">--<span class="metric-cell-unit"> V</span></div>
+            </div>
+          </div>
+          <div class="sensor-footer">
+            <span class="last-update" id="s5-time">Sin datos</span>
+            <div class="bat-bar-wrap">
+              <span class="bat-label">BAT</span>
+              <div class="bat-bar">
+                <div class="bat-fill" id="s5-batbar" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GRAFICAS -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">Temperatura del suelo — últimas 24h</span>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#3fb950"></div>Zona A
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#58a6ff"></div>Zona B
+            </div>
+          </div>
+        </div>
+        <canvas id="tempChart" height="80"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">Humedad del suelo — últimas 24h</span>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#39d0b0"></div>Zona A
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#d29922"></div>Zona B
+            </div>
+          </div>
+        </div>
+        <canvas id="humChart" height="80"></canvas>
+      </div>
+
+      <!-- ELECTROVALVULAS -->
+      <div class="section-label">Control de electroválvulas</div>
+      <div class="irrigation-grid">
+        <div class="zone-card" id="zone-a-card">
+          <div class="zone-card-top">
+            <div class="zone-card-name">Zona A</div>
+            <div class="valve-indicator" id="valve-a"></div>
+          </div>
+          <div class="zone-stat">sensor: <span>sensor-4-huerta</span></div>
+          <div class="zone-stat">estado: <span id="valve-a-state">Cerrada</span></div>
+          <div class="zone-stat">última activación: <span id="valve-a-time">--</span></div>
+          <button class="btn-valve" id="btn-valve-a" onclick="toggleValve('A')">Abrir válvula</button>
+        </div>
+        <div class="zone-card" id="zone-b-card">
+          <div class="zone-card-top">
+            <div class="zone-card-name">Zona B</div>
+            <div class="valve-indicator" id="valve-b"></div>
+          </div>
+          <div class="zone-stat">sensor: <span>sensor-5</span></div>
+          <div class="zone-stat">estado: <span id="valve-b-state">Cerrada</span></div>
+          <div class="zone-stat">última activación: <span id="valve-b-time">--</span></div>
+          <button class="btn-valve" id="btn-valve-b" onclick="toggleValve('B')">Abrir válvula</button>
+        </div>
+        <div class="zone-card" id="zone-c-card">
+          <div class="zone-card-top">
+            <div class="zone-card-name">Zona C</div>
+            <div class="valve-indicator" id="valve-c"></div>
+          </div>
+          <div class="zone-stat">sensor: <span>--</span></div>
+          <div class="zone-stat">estado: <span id="valve-c-state">Cerrada</span></div>
+          <div class="zone-stat">última activación: <span id="valve-c-time">--</span></div>
+          <button class="btn-valve" id="btn-valve-c" onclick="toggleValve('C')">Abrir válvula</button>
+        </div>
+        <div class="zone-card" id="zone-d-card">
+          <div class="zone-card-top">
+            <div class="zone-card-name">Zona D</div>
+            <div class="valve-indicator" id="valve-d"></div>
+          </div>
+          <div class="zone-stat">sensor: <span>--</span></div>
+          <div class="zone-stat">estado: <span id="valve-d-state">Cerrada</span></div>
+          <div class="zone-stat">última activación: <span id="valve-d-time">--</span></div>
+          <button class="btn-valve" id="btn-valve-d" onclick="toggleValve('D')">Abrir válvula</button>
+        </div>
+        <div class="zone-card" id="zone-e-card">
+          <div class="zone-card-top">
+            <div class="zone-card-name">Zona E</div>
+            <div class="valve-indicator" id="valve-e"></div>
+          </div>
+          <div class="zone-stat">sensor: <span>--</span></div>
+          <div class="zone-stat">estado: <span id="valve-e-state">Cerrada</span></div>
+          <div class="zone-stat">última activación: <span id="valve-e-time">--</span></div>
+          <button class="btn-valve" id="btn-valve-e" onclick="toggleValve('E')">Abrir válvula</button>
+        </div>
+      </div>
+
+      <!-- LOG DE ACTIVIDAD -->
+      <div class="section-label">Registro de actividad</div>
+      <div class="log-card">
+        <div class="log-header">
+          Últimos eventos
+          <span class="log-count" id="log-count">0 eventos</span>
+        </div>
+        <div id="log-list">
+          <div class="log-item">
+            <span class="log-time">--:--</span>
+            <div class="log-dot" style="background:var(--text3)"></div>
+            <span class="log-msg">Esperando datos de Firebase...</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <span class="footer-text">Huerta Garzones © 2026 — Sistema LoRaWAN / TTN / Firebase</span>
+      <span class="footer-text" id="footer-time">--</span>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script>
+    window.doLogin = function () {
+      const u = document.getElementById('inp-user').value.trim();
+      const p = document.getElementById('inp-pass').value;
+      const USERS = { admin: 'huerta2026', operador: 'zona123' };
+      const err = document.getElementById('login-error');
+      if (USERS[u] && USERS[u] === p) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        if (window._initDashboard) window._initDashboard();
+      } else {
+        err.style.display = 'block';
+        setTimeout(() => err.style.display = 'none', 3000);
+      }
+    };
+    window.doLogout = function () {
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('inp-user').value = '';
+      document.getElementById('inp-pass').value = '';
+    };
+    window.toggleValve = function (zone) {
+      if (window._toggleValve) window._toggleValve(zone);
+    };
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') window.doLogin();
+    });
+  </script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
+    import { getDatabase, ref, onValue, query, orderByChild, limitToLast } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js';
+
+    const ZONES_PAYLOAD = { A: 'AQ==', B: 'Ag==', C: 'Aw==', D: 'BA==', E: 'BQ==' };
+    const TTN_URL = 'https://nam1.cloud.thethings.network/api/v3/as/applications/proyecto-huerta/devices/la66-prueba/down/replace';
+    const TTN_KEY = 'NNSXS.6EIBLPA7BJAS6QCIUQSYPVZHBD6ADD7SCGMMRJA.34AMWYZNHEDTVQJPV6UJSTP7EW5SW4ZKWOTYRTK2NIDDL4R2BHYA';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBGsIGyfi45pW5hvM3zhiTm-8GO7rtDJ7Y",
+      authDomain: "huerta-garzones-58b08.firebaseapp.com",
+      databaseURL: "https://huerta-garzones-58b08-default-rtdb.firebaseio.com",
+      projectId: "huerta-garzones-58b08",
+      storageBucket: "huerta-garzones-58b08.firebasestorage.app",
+      messagingSenderId: "781800566263",
+      appId: "1:781800566263:web:71393f06deba0426a792f2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    let tempChart, humChart;
+    let valveState = { A: false, B: false, C: false, D: false, E: false };
+    let logEvents = [];
+
+    window._toggleValve = async (zone) => {
+      const isOpen = valveState[zone];
+      valveState[zone] = !isOpen;
+      updateValveUI(zone);
+      const msg = valveState[zone] ? `Válvula Zona ${zone} abierta manualmente` : `Válvula Zona ${zone} cerrada manualmente`;
+      addLog(msg, valveState[zone] ? 'green' : 'red');
+      if (valveState[zone]) {
+        try {
+          await fetch(TTN_URL, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${TTN_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ downlinks: [{ f_port: 15, frm_payload: ZONES_PAYLOAD[zone], priority: 'NORMAL' }] })
+          });
+          const now = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+          document.getElementById(`valve-${zone.toLowerCase()}-time`).textContent = now;
+        } catch (e) { addLog('Error al enviar downlink a TTN', 'red'); }
+      }
+    };
+
+    function updateValveUI(zone) {
+      const z = zone.toLowerCase();
+      const ind = document.getElementById(`valve-${z}`);
+      const btn = document.getElementById(`btn-valve-${z}`);
+      const stateEl = document.getElementById(`valve-${z}-state`);
+      const card = document.getElementById(`zone-${z}-card`);
+      if (valveState[zone]) {
+        ind.classList.add('open');
+        btn.textContent = 'Cerrar válvula';
+        btn.classList.add('active-btn');
+        stateEl.textContent = 'Abierta';
+        stateEl.style.color = 'var(--green)';
+        card.classList.add('active');
+      } else {
+        ind.classList.remove('open');
+        btn.textContent = 'Abrir válvula';
+        btn.classList.remove('active-btn');
+        stateEl.textContent = 'Cerrada';
+        stateEl.style.color = 'var(--text2)';
+        card.classList.remove('active');
+      }
     }
-  };
-  window.doLogout = function() {
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('inp-user').value = '';
-    document.getElementById('inp-pass').value = '';
-  };
-  window.toggleValve = function(zone) {
-    if (window._toggleValve) window._toggleValve(zone);
-  };
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') window.doLogin();
-  });
-</script>
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
-  import { getDatabase, ref, onValue, query, orderByChild, limitToLast } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js';
 
-  const ZONES_PAYLOAD = { A: 'AQ==', B: 'Ag==', C: 'Aw==', D: 'BA==', E: 'BQ==' };
-  const TTN_URL = 'https://nam1.cloud.thethings.network/api/v3/as/applications/proyecto-huerta/devices/la66-prueba/down/replace';
-  const TTN_KEY = 'NNSXS.6EIBLPA7BJAS6QCIUQSYPVZHBD6ADD7SCGMMRJA.34AMWYZNHEDTVQJPV6UJSTP7EW5SW4ZKWOTYRTK2NIDDL4R2BHYA';
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBGsIGyfi45pW5hvM3zhiTm-8GO7rtDJ7Y",
-    authDomain: "huerta-garzones.firebaseapp.com",
-    databaseURL: "https://huerta-garzones-58b08-default-rtdb.firebaseio.com",
-    projectId: "huerta-garzones-58b08",
-    storageBucket: "huerta-garzones-58b08.firebasestorage.app",
-    messagingSenderId: "361934372056",
-    appId: "1:361934372056:web:1151de2cd994fb88a2abad"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  let tempChart, humChart;
-  let valveState = { A: false, B: false, C: false, D: false, E: false };
-  let logEvents = [];
-
-  window._toggleValve = async (zone) => {
-    const isOpen = valveState[zone];
-    valveState[zone] = !isOpen;
-    updateValveUI(zone);
-    const msg = valveState[zone] ? `Válvula Zona ${zone} abierta manualmente` : `Válvula Zona ${zone} cerrada manualmente`;
-    addLog(msg, valveState[zone] ? 'green' : 'red');
-    if (valveState[zone]) {
-      try {
-        await fetch(TTN_URL, {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${TTN_KEY}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ downlinks: [{ f_port: 15, frm_payload: ZONES_PAYLOAD[zone], priority: 'NORMAL' }] })
-        });
-        const now = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
-        document.getElementById(`valve-${zone.toLowerCase()}-time`).textContent = now;
-      } catch(e) { addLog('Error al enviar downlink a TTN', 'red'); }
+    function addLog(msg, color = 'neutral', tag = '') {
+      const colors = { green: '#3fb950', red: '#f85149', blue: '#58a6ff', amber: '#d29922', neutral: '#484f58' };
+      const time = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      logEvents.unshift({ time, msg, color: colors[color] || colors.neutral, tag });
+      if (logEvents.length > 20) logEvents.pop();
+      renderLog();
     }
-  };
 
-  function updateValveUI(zone) {
-    const z = zone.toLowerCase();
-    const ind = document.getElementById(`valve-${z}`);
-    const btn = document.getElementById(`btn-valve-${z}`);
-    const stateEl = document.getElementById(`valve-${z}-state`);
-    const card = document.getElementById(`zone-${z}-card`);
-    if (valveState[zone]) {
-      ind.classList.add('open');
-      btn.textContent = 'Cerrar válvula';
-      btn.classList.add('active-btn');
-      stateEl.textContent = 'Abierta';
-      stateEl.style.color = 'var(--green)';
-      card.classList.add('active');
-    } else {
-      ind.classList.remove('open');
-      btn.textContent = 'Abrir válvula';
-      btn.classList.remove('active-btn');
-      stateEl.textContent = 'Cerrada';
-      stateEl.style.color = 'var(--text2)';
-      card.classList.remove('active');
-    }
-  }
-
-  function addLog(msg, color = 'neutral', tag = '') {
-    const colors = { green: '#3fb950', red: '#f85149', blue: '#58a6ff', amber: '#d29922', neutral: '#484f58' };
-    const time = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    logEvents.unshift({ time, msg, color: colors[color] || colors.neutral, tag });
-    if (logEvents.length > 20) logEvents.pop();
-    renderLog();
-  }
-
-  function renderLog() {
-    const list = document.getElementById('log-list');
-    document.getElementById('log-count').textContent = `${logEvents.length} eventos`;
-    list.innerHTML = logEvents.map(e => `
+    function renderLog() {
+      const list = document.getElementById('log-list');
+      document.getElementById('log-count').textContent = `${logEvents.length} eventos`;
+      list.innerHTML = logEvents.map(e => `
       <div class="log-item">
         <span class="log-time">${e.time}</span>
         <div class="log-dot" style="background:${e.color}"></div>
         <span class="log-msg">${e.msg}</span>
         ${e.tag ? `<span class="log-tag badge-green" style="background:rgba(63,185,80,0.1);color:#3fb950;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:4px;">${e.tag}</span>` : ''}
       </div>`).join('');
-  }
+    }
 
-  function initCharts() {
-    const cfg = (label, color) => ({
-      type: 'line',
-      data: { labels: [], datasets: [
-        { label: 'Zona A', data: [], borderColor: color[0], backgroundColor: color[0]+'22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 },
-        { label: 'Zona B', data: [], borderColor: color[1], backgroundColor: color[1]+'22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 }
-      ]},
-      options: {
-        responsive: true, maintainAspectRatio: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#484f58', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' } },
-          y: { ticks: { color: '#484f58', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' } }
+    function initCharts() {
+      const cfg = (label, color) => ({
+        type: 'line',
+        data: {
+          labels: [], datasets: [
+            { label: 'Zona A', data: [], borderColor: color[0], backgroundColor: color[0] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 },
+            { label: 'Zona B', data: [], borderColor: color[1], backgroundColor: color[1] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: '#484f58', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' } },
+            y: { ticks: { color: '#484f58', font: { family: 'DM Mono', size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' } }
+          }
         }
-      }
-    });
-    tempChart = new Chart(document.getElementById('tempChart'), cfg('Temperatura', ['#3fb950', '#58a6ff']));
-    humChart = new Chart(document.getElementById('humChart'), cfg('Humedad', ['#39d0b0', '#d29922']));
-  }
+      });
+      tempChart = new Chart(document.getElementById('tempChart'), cfg('Temperatura', ['#3fb950', '#58a6ff']));
+      humChart = new Chart(document.getElementById('humChart'), cfg('Humedad', ['#39d0b0', '#d29922']));
+    }
 
-  function updateCharts(measurements) {
-    const tz = 'America/Bogota';
-    const now = Date.now();
-    const cutoff = now - 24 * 60 * 60 * 1000;
-    const zonaA = [], zonaB = [];
+    function updateCharts(measurements) {
+      const tz = 'America/Bogota';
+      const now = Date.now();
+      const cutoff = now - 24 * 60 * 60 * 1000;
+      const zonaA = [], zonaB = [];
 
-    Object.values(measurements).forEach(m => {
-      const d = new Date(m.date);
-      if (isNaN(d) || d.getTime() < cutoff) return;
-      const t = d.toLocaleTimeString('es-CO', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
-      if (m.zone === 'Zona A') zonaA.push({ t, temp: m.temp, hum: m.moisture });
-      if (m.zone === 'Zona B') zonaB.push({ t, temp: m.temp, hum: m.moisture });
-    });
+      Object.values(measurements).forEach(m => {
+        const d = new Date(m.date);
+        if (isNaN(d) || d.getTime() < cutoff) return;
+        const t = d.toLocaleTimeString('es-CO', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
+        if (m.zone === 'Zona A') zonaA.push({ t, temp: m.temp, hum: m.moisture });
+        if (m.zone === 'Zona B') zonaB.push({ t, temp: m.temp, hum: m.moisture });
+      });
 
-    zonaA.sort((a,b) => a.t.localeCompare(b.t));
-    zonaB.sort((a,b) => a.t.localeCompare(b.t));
+      zonaA.sort((a, b) => a.t.localeCompare(b.t));
+      zonaB.sort((a, b) => a.t.localeCompare(b.t));
 
-    const allTimes = [...new Set([...zonaA.map(x=>x.t), ...zonaB.map(x=>x.t)])].sort();
-    tempChart.data.labels = allTimes;
-    humChart.data.labels = allTimes;
-    tempChart.data.datasets[0].data = allTimes.map(t => { const f = zonaA.find(x=>x.t===t); return f ? parseFloat(f.temp) : null; });
-    tempChart.data.datasets[1].data = allTimes.map(t => { const f = zonaB.find(x=>x.t===t); return f ? parseFloat(f.temp) : null; });
-    humChart.data.datasets[0].data = allTimes.map(t => { const f = zonaA.find(x=>x.t===t); return f ? parseFloat(f.hum) : null; });
-    humChart.data.datasets[1].data = allTimes.map(t => { const f = zonaB.find(x=>x.t===t); return f ? parseFloat(f.hum) : null; });
-    tempChart.update(); humChart.update();
-  }
+      const allTimes = [...new Set([...zonaA.map(x => x.t), ...zonaB.map(x => x.t)])].sort();
+      tempChart.data.labels = allTimes;
+      humChart.data.labels = allTimes;
+      tempChart.data.datasets[0].data = allTimes.map(t => { const f = zonaA.find(x => x.t === t); return f ? parseFloat(f.temp) : null; });
+      tempChart.data.datasets[1].data = allTimes.map(t => { const f = zonaB.find(x => x.t === t); return f ? parseFloat(f.temp) : null; });
+      humChart.data.datasets[0].data = allTimes.map(t => { const f = zonaA.find(x => x.t === t); return f ? parseFloat(f.hum) : null; });
+      humChart.data.datasets[1].data = allTimes.map(t => { const f = zonaB.find(x => x.t === t); return f ? parseFloat(f.hum) : null; });
+      tempChart.update(); humChart.update();
+    }
 
-  window._initDashboard = function initDashboard() {
-    initCharts();
-    addLog('Dashboard iniciado', 'green');
+    window._initDashboard = function initDashboard() {
+      initCharts();
+      addLog('Dashboard iniciado', 'green');
 
-    setInterval(() => {
-      document.getElementById('footer-time').textContent = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
-    }, 1000);
+      setInterval(() => {
+        document.getElementById('footer-time').textContent = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
+      }, 1000);
 
-    onValue(ref(db, 'Measurements'), snap => {
-      const val = snap.val();
-      if (!val) return;
-      const all = Object.values(val);
-      const a4 = all.filter(m => m.zone === 'Zona A').sort((x,y) => new Date(y.date) - new Date(x.date));
-      const a5 = all.filter(m => m.zone === 'Zona B').sort((x,y) => new Date(y.date) - new Date(x.date));
-      const last4 = a4[0], last5 = a5[0];
+      onValue(ref(db, 'Measurements'), snap => {
+        const val = snap.val();
+        if (!val) return;
+        const all = Object.values(val);
+        const a4 = all.filter(m => m.zone === 'Zona A').sort((x, y) => new Date(y.date) - new Date(x.date));
+        const a5 = all.filter(m => m.zone === 'Zona B').sort((x, y) => new Date(y.date) - new Date(x.date));
+        const last4 = a4[0], last5 = a5[0];
 
-      const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }) : '--';
+        const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }) : '--';
 
-      if (last4) {
-        document.getElementById('s4-temp').innerHTML = `${parseFloat(last4.temp).toFixed(1)}<span class="metric-cell-unit"> °C</span>`;
-        document.getElementById('s4-hum').innerHTML = `${parseFloat(last4.moisture).toFixed(1)}<span class="metric-cell-unit"> %</span>`;
-        document.getElementById('s4-cond').innerHTML = `${last4.conductivity ?? '--'}<span class="metric-cell-unit"> µS</span>`;
-        document.getElementById('s4-time').textContent = `Actualizado: ${fmt(last4.date)}`;
-        const batV = parseFloat((last4.conductivity > 0 ? 3.3 : 0));
-        document.getElementById('s4-batbar').style.width = '85%';
-        document.getElementById('s4-bat').innerHTML = `3.3<span class="metric-cell-unit"> V</span>`;
-        document.getElementById('s4-status').textContent = 'Activo';
-        document.getElementById('s4-status').className = 'badge badge-green';
-      }
+        if (last4) {
+          document.getElementById('s4-temp').innerHTML = `${parseFloat(last4.temp).toFixed(1)}<span class="metric-cell-unit"> °C</span>`;
+          document.getElementById('s4-hum').innerHTML = `${parseFloat(last4.moisture).toFixed(1)}<span class="metric-cell-unit"> %</span>`;
+          document.getElementById('s4-cond').innerHTML = `${last4.conductivity ?? '--'}<span class="metric-cell-unit"> µS</span>`;
+          document.getElementById('s4-time').textContent = `Actualizado: ${fmt(last4.date)}`;
+          const batV = parseFloat((last4.conductivity > 0 ? 3.3 : 0));
+          document.getElementById('s4-batbar').style.width = '85%';
+          document.getElementById('s4-bat').innerHTML = `3.3<span class="metric-cell-unit"> V</span>`;
+          document.getElementById('s4-status').textContent = 'Activo';
+          document.getElementById('s4-status').className = 'badge badge-green';
+        }
 
-      if (last5) {
-        document.getElementById('s5-temp').innerHTML = `${parseFloat(last5.temp).toFixed(1)}<span class="metric-cell-unit"> °C</span>`;
-        document.getElementById('s5-hum').innerHTML = `${parseFloat(last5.moisture).toFixed(1)}<span class="metric-cell-unit"> %</span>`;
-        document.getElementById('s5-cond').innerHTML = `${last5.conductivity ?? '--'}<span class="metric-cell-unit"> µS</span>`;
-        document.getElementById('s5-time').textContent = `Actualizado: ${fmt(last5.date)}`;
-        document.getElementById('s5-batbar').style.width = '85%';
-        document.getElementById('s5-bat').innerHTML = `3.3<span class="metric-cell-unit"> V</span>`;
-        document.getElementById('s5-status').textContent = 'Activo';
-        document.getElementById('s5-status').className = 'badge badge-green';
-      }
+        if (last5) {
+          document.getElementById('s5-temp').innerHTML = `${parseFloat(last5.temp).toFixed(1)}<span class="metric-cell-unit"> °C</span>`;
+          document.getElementById('s5-hum').innerHTML = `${parseFloat(last5.moisture).toFixed(1)}<span class="metric-cell-unit"> %</span>`;
+          document.getElementById('s5-cond').innerHTML = `${last5.conductivity ?? '--'}<span class="metric-cell-unit"> µS</span>`;
+          document.getElementById('s5-time').textContent = `Actualizado: ${fmt(last5.date)}`;
+          document.getElementById('s5-batbar').style.width = '85%';
+          document.getElementById('s5-bat').innerHTML = `3.3<span class="metric-cell-unit"> V</span>`;
+          document.getElementById('s5-status').textContent = 'Activo';
+          document.getElementById('s5-status').className = 'badge badge-green';
+        }
 
-      const temps = [last4?.temp, last5?.temp].filter(Boolean).map(Number);
-      const hums = [last4?.moisture, last5?.moisture].filter(Boolean).map(Number);
-      if (temps.length) document.getElementById('avg-temp').innerHTML = `${(temps.reduce((a,b)=>a+b)/temps.length).toFixed(1)}<span class="stat-unit"> °C</span>`;
-      if (hums.length) document.getElementById('avg-hum').innerHTML = `${(hums.reduce((a,b)=>a+b)/hums.length).toFixed(1)}<span class="stat-unit"> %</span>`;
+        const temps = [last4?.temp, last5?.temp].filter(Boolean).map(Number);
+        const hums = [last4?.moisture, last5?.moisture].filter(Boolean).map(Number);
+        if (temps.length) document.getElementById('avg-temp').innerHTML = `${(temps.reduce((a, b) => a + b) / temps.length).toFixed(1)}<span class="stat-unit"> °C</span>`;
+        if (hums.length) document.getElementById('avg-hum').innerHTML = `${(hums.reduce((a, b) => a + b) / hums.length).toFixed(1)}<span class="stat-unit"> %</span>`;
 
-      const active = [last4, last5].filter(Boolean).filter(m => {
-        const diff = (Date.now() - new Date(m.date).getTime()) / 60000;
-        return diff < 10;
-      }).length;
-      document.getElementById('sensors-active').textContent = active;
-      document.getElementById('meas-count').textContent = all.length;
+        const active = [last4, last5].filter(Boolean).filter(m => {
+          const diff = (Date.now() - new Date(m.date).getTime()) / 60000;
+          return diff < 10;
+        }).length;
+        document.getElementById('sensors-active').textContent = active;
+        document.getElementById('meas-count').textContent = all.length;
 
-      updateCharts(val);
-      addLog(`Datos recibidos — Zona A: ${last4?.temp ?? '--'}°C / Zona B: ${last5?.temp ?? '--'}°C`, 'blue');
-    });
+        updateCharts(val);
+        addLog(`Datos recibidos — Zona A: ${last4?.temp ?? '--'}°C / Zona B: ${last5?.temp ?? '--'}°C`, 'blue');
+      });
 
-    onValue(ref(db, 'Irrigations'), snap => {
-      const val = snap.val();
-      if (!val) return;
-      const all = Object.values(val).sort((a,b) => new Date(b.start_time) - new Date(a.start_time));
-      const last = all[0];
-      if (last) {
-        const t = new Date(last.start_time).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' });
-        document.getElementById('last-irr').textContent = t;
-        document.getElementById('last-irr-zone').textContent = last.zone;
-        const zMap = { 'Zona A':'a', 'Zona B':'b', 'Zona C':'c', 'Zona D':'d', 'Zona E':'e' };
-        const z = zMap[last.zone];
-        if (z) document.getElementById(`valve-${z}-time`).textContent = t;
-        addLog(`Irrigación registrada en ${last.zone}`, 'green', 'RIEGO');
-      }
-    });
-  }
-</script>
+      onValue(ref(db, 'Irrigations'), snap => {
+        const val = snap.val();
+        if (!val) return;
+        const all = Object.values(val).sort((a, b) => new Date(b.start_time) - new Date(a.start_time));
+        const last = all[0];
+        if (last) {
+          const t = new Date(last.start_time).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' });
+          document.getElementById('last-irr').textContent = t;
+          document.getElementById('last-irr-zone').textContent = last.zone;
+          const zMap = { 'Zona A': 'a', 'Zona B': 'b', 'Zona C': 'c', 'Zona D': 'd', 'Zona E': 'e' };
+          const z = zMap[last.zone];
+          if (z) document.getElementById(`valve-${z}-time`).textContent = t;
+          addLog(`Irrigación registrada en ${last.zone}`, 'green', 'RIEGO');
+        }
+      });
+    }
+  </script>
 </body>
+
 </html>
