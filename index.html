@@ -919,10 +919,10 @@
           <span class="chart-title">Temperatura del suelo — últimas 24h</span>
           <div class="chart-legend">
             <div class="legend-item">
-              <div class="legend-dot" style="background:#3fb950"></div>Zona A
+              <div class="legend-dot" style="background:#3fb950"></div>Zona C
             </div>
             <div class="legend-item">
-              <div class="legend-dot" style="background:#58a6ff"></div>Zona B
+              <div class="legend-dot" style="background:#58a6ff"></div>Zona D
             </div>
           </div>
         </div>
@@ -934,70 +934,16 @@
           <span class="chart-title">Humedad del suelo — últimas 24h</span>
           <div class="chart-legend">
             <div class="legend-item">
-              <div class="legend-dot" style="background:#39d0b0"></div>Zona A
+              <div class="legend-dot" style="background:#39d0b0"></div>Zona C
             </div>
             <div class="legend-item">
-              <div class="legend-dot" style="background:#d29922"></div>Zona B
+              <div class="legend-dot" style="background:#d29922"></div>Zona D
             </div>
           </div>
         </div>
         <canvas id="humChart" height="80"></canvas>
       </div>
 
-      <!-- ELECTROVALVULAS -->
-      <div class="section-label">Control de electroválvulas</div>
-      <div class="irrigation-grid">
-        <div class="zone-card" id="zone-a-card">
-          <div class="zone-card-top">
-            <div class="zone-card-name">Zona A</div>
-            <div class="valve-indicator" id="valve-a"></div>
-          </div>
-          <div class="zone-stat">sensor: <span>sensor-4-huerta</span></div>
-          <div class="zone-stat">estado: <span id="valve-a-state">Cerrada</span></div>
-          <div class="zone-stat">última activación: <span id="valve-a-time">--</span></div>
-          <button class="btn-valve" id="btn-valve-a" onclick="toggleValve('A')">Abrir válvula</button>
-        </div>
-        <div class="zone-card" id="zone-b-card">
-          <div class="zone-card-top">
-            <div class="zone-card-name">Zona B</div>
-            <div class="valve-indicator" id="valve-b"></div>
-          </div>
-          <div class="zone-stat">sensor: <span>sensor-5</span></div>
-          <div class="zone-stat">estado: <span id="valve-b-state">Cerrada</span></div>
-          <div class="zone-stat">última activación: <span id="valve-b-time">--</span></div>
-          <button class="btn-valve" id="btn-valve-b" onclick="toggleValve('B')">Abrir válvula</button>
-        </div>
-        <div class="zone-card" id="zone-c-card">
-          <div class="zone-card-top">
-            <div class="zone-card-name">Zona C</div>
-            <div class="valve-indicator" id="valve-c"></div>
-          </div>
-          <div class="zone-stat">sensor: <span>--</span></div>
-          <div class="zone-stat">estado: <span id="valve-c-state">Cerrada</span></div>
-          <div class="zone-stat">última activación: <span id="valve-c-time">--</span></div>
-          <button class="btn-valve" id="btn-valve-c" onclick="toggleValve('C')">Abrir válvula</button>
-        </div>
-        <div class="zone-card" id="zone-d-card">
-          <div class="zone-card-top">
-            <div class="zone-card-name">Zona D</div>
-            <div class="valve-indicator" id="valve-d"></div>
-          </div>
-          <div class="zone-stat">sensor: <span>--</span></div>
-          <div class="zone-stat">estado: <span id="valve-d-state">Cerrada</span></div>
-          <div class="zone-stat">última activación: <span id="valve-d-time">--</span></div>
-          <button class="btn-valve" id="btn-valve-d" onclick="toggleValve('D')">Abrir válvula</button>
-        </div>
-        <div class="zone-card" id="zone-e-card">
-          <div class="zone-card-top">
-            <div class="zone-card-name">Zona E</div>
-            <div class="valve-indicator" id="valve-e"></div>
-          </div>
-          <div class="zone-stat">sensor: <span>--</span></div>
-          <div class="zone-stat">estado: <span id="valve-e-state">Cerrada</span></div>
-          <div class="zone-stat">última activación: <span id="valve-e-time">--</span></div>
-          <button class="btn-valve" id="btn-valve-e" onclick="toggleValve('E')">Abrir válvula</button>
-        </div>
-      </div>
 
       <!-- LOG DE ACTIVIDAD -->
       <div class="section-label">Registro de actividad</div>
@@ -1144,8 +1090,8 @@
         type: 'line',
         data: {
           labels: [], datasets: [
-            { label: 'Zona A', data: [], borderColor: color[0], backgroundColor: color[0] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 },
-            { label: 'Zona B', data: [], borderColor: color[1], backgroundColor: color[1] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 }
+            { label: 'Zona C', data: [], borderColor: color[0], backgroundColor: color[0] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 },
+            { label: 'Zona D', data: [], borderColor: color[1], backgroundColor: color[1] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 }
           ]
         },
         options: {
@@ -1242,7 +1188,7 @@
         document.getElementById('meas-count').textContent = all.length;
 
         updateCharts(val);
-        addLog(`Datos recibidos — Zona A: ${last4?.temp ?? '--'}°C / Zona B: ${last5?.temp ?? '--'}°C`, 'blue');
+        addLog(`Datos recibidos — Zona C: ${last4?.temp ?? '--'}°C / Zona D: ${last5?.temp ?? '--'}°C`, 'blue');
       });
 
       onValue(ref(db, 'Irrigations'), snap => {
