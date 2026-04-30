@@ -1122,7 +1122,7 @@
       });
 
       zonaA.sort((a, b) => new Date(a.date) - new Date(b.date));
-      zonaB.sort((a, b) => new Date(b.date) - new Date(b.date));
+      zonaB.sort((a, b) => new Date(a.date) - new Date(b.date));
 
 
       const allTimes = [...new Set([...zonaA.map(x => x.t), ...zonaB.map(x => x.t)])].sort();
