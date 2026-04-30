@@ -840,8 +840,8 @@
         <div class="sensor-card">
           <div class="sensor-card-header">
             <div>
-              <div class="sensor-name">sensor-4-huerta</div>
-              <div class="sensor-zone">Zona A</div>
+              <div class="sensor-name">sensor-1</div>
+              <div class="sensor-zone">Zona C</div>
             </div>
             <span class="badge badge-green" id="s4-status">Activo</span>
           </div>
@@ -877,8 +877,8 @@
         <div class="sensor-card">
           <div class="sensor-card-header">
             <div>
-              <div class="sensor-name">sensor-5</div>
-              <div class="sensor-zone">Zona B</div>
+              <div class="sensor-name">sensor-2</div>
+              <div class="sensor-zone">Zona D</div>
             </div>
             <span class="badge badge-green" id="s5-status">Activo</span>
           </div>
@@ -1200,8 +1200,8 @@
         const val = snap.val();
         if (!val) return;
         const all = Object.values(val);
-        const a4 = all.filter(m => m.zone === 'Zona A').sort((x, y) => new Date(y.date) - new Date(x.date));
-        const a5 = all.filter(m => m.zone === 'Zona B').sort((x, y) => new Date(y.date) - new Date(x.date));
+        const a4 = all.filter(m => m.zone === 'Zona C').sort((x, y) => new Date(y.date) - new Date(x.date));
+        const a5 = all.filter(m => m.zone === 'Zona D').sort((x, y) => new Date(y.date) - new Date(x.date));
         const last4 = a4[0], last5 = a5[0];
 
         const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }) : '--';
