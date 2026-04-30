@@ -553,6 +553,56 @@
       margin-bottom: 12px
     }
 
+    .chart-body {
+      height: 280px;
+      position: relative
+    }
+
+    .chart-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px
+    }
+
+    .chart-tab {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: var(--mono);
+      border: none;
+      background: transparent;
+      color: var(--text3);
+      cursor: pointer;
+      transition: all 0.15s
+    }
+
+    .chart-tab.active {
+      background: var(--text);
+      color: #fff
+    }
+
+    .chart-tab:hover:not(.active) {
+      background: var(--surface2);
+      color: var(--text2)
+    }
+
+    .chart-tab-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
     .chart-head {
       display: flex;
       align-items: center;
@@ -850,7 +900,19 @@
         </div>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-tabs">
+        <button class="chart-tab active" onclick="switchChart('temp', this)">
+          <span class="chart-tab-dot" style="background:#00875a"></span>Temperatura
+        </button>
+        <button class="chart-tab" onclick="switchChart('hum', this)">
+          <span class="chart-tab-dot" style="background:#0891b2"></span>Humedad
+        </button>
+        <button class="chart-tab" onclick="switchChart('cond', this)">
+          <span class="chart-tab-dot" style="background:#7c3aed"></span>Conductividad
+        </button>
+      </div>
+
+      <div class="chart-card" id="tempChartCard">
         <div class="chart-head">
           <span class="chart-title">TEMPERATURA DEL SUELO (°C)</span>
           <div class="chart-legend">
@@ -862,10 +924,10 @@
             </div>
           </div>
         </div>
-        <canvas id="tempChart" style="min-height:200px"></canvas>
+        <div class="chart-body"><canvas id="tempChart"></canvas></div>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="humChartCard" style="display:none">
         <div class="chart-head">
           <span class="chart-title">HUMEDAD DEL SUELO (%)</span>
           <div class="chart-legend">
@@ -877,10 +939,10 @@
             </div>
           </div>
         </div>
-        <canvas id="humChart" style="min-height:200px"></canvas>
+        <div class="chart-body"><canvas id="humChart"></canvas></div>
       </div>
 
-      <div class="chart-card">
+      <div class="chart-card" id="condChartCard" style="display:none">
         <div class="chart-head">
           <span class="chart-title">CONDUCTIVIDAD DEL SUELO (µS/cm)</span>
           <div class="chart-legend">
@@ -892,7 +954,7 @@
             </div>
           </div>
         </div>
-        <canvas id="condChart" style="min-height:200px"></canvas>
+        <div class="chart-body"><canvas id="condChart"></canvas></div>
       </div>
 
       <!-- TABLE -->
@@ -962,6 +1024,16 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') doLogin();
     });
+
+    window.switchChart = function (which, btn) {
+      document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      ['temp', 'hum', 'cond'].forEach(n => {
+        document.getElementById(n + 'ChartCard').style.display = n === which ? 'block' : 'none';
+      });
+      const map = { temp: tempChart, hum: humChart, cond: condChart };
+      if (map[which]) map[which].resize();
+    };
 
     window.setRange = function (h) {
       currentRange = h;
