@@ -1090,8 +1090,8 @@
         type: 'line',
         data: {
           labels: [], datasets: [
-            { label: 'Zona C', data: [], borderColor: color[0], backgroundColor: color[0] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 },
-            { label: 'Zona D', data: [], borderColor: color[1], backgroundColor: color[1] + '22', tension: 0.4, pointRadius: 2, borderWidth: 1.5 }
+            { label: 'Zona C', data: [], borderColor: color[0], backgroundColor: color[0] + '22', tension: 0.4, pointRadius: 4, borderWidth: 2, spanGaps: true },
+            { label: 'Zona D', data: [], borderColor: color[1], backgroundColor: color[1] + '22', tension: 0.4, pointRadius: 4, borderWidth: 2, spanGaps: true }
           ]
         },
         options: {
@@ -1117,12 +1117,13 @@
         const d = new Date(m.date);
         if (isNaN(d) || d.getTime() < cutoff) return;
         const t = d.toLocaleString('es-CO', { timeZone: tz, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-        if (m.zone === 'Zona C') zonaA.push({ t, temp: m.temp, hum: m.moisture });
-        if (m.zone === 'Zona D') zonaB.push({ t, temp: m.temp, hum: m.moisture });
+        if (m.zone === 'Zona C') zonaA.push({ t, temp: m.temp, hum: m.moisture, date: m.date });
+        if (m.zone === 'Zona D') zonaB.push({ t, temp: m.temp, hum: m.moisture, date: m.date });
       });
 
-      zonaA.sort((a, b) => a.t.localeCompare(b.t));
-      zonaB.sort((a, b) => a.t.localeCompare(b.t));
+      zonaA.sort((a, b) => new Date(a.date) - new Date(b.date));
+      zonaB.sort((a, b) => new Date(b.date) - new Date(b.date));
+
 
       const allTimes = [...new Set([...zonaA.map(x => x.t), ...zonaB.map(x => x.t)])].sort();
       tempChart.data.labels = allTimes;
