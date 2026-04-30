@@ -1110,7 +1110,7 @@
     function updateCharts(measurements) {
       const tz = 'America/Bogota';
       const now = Date.now();
-      const cutoff = now - 24 * 60 * 60 * 1000;
+      const cutoff = now - 48 * 60 * 60 * 1000;
       const zonaA = [], zonaB = [];
 
       Object.values(measurements).forEach(m => {
