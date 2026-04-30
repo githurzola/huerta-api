@@ -4,12 +4,14 @@ const zonas = [
   { nombre: 'Zona A', is_enable: true },
   { nombre: 'Zona B', is_enable: true },
   { nombre: 'Zona C', is_enable: true },
+  { nombre: 'Zona D', is_enable: true },
 ];
 
 const sensores = [
   { zone: 'Zona A', name: 'sensor-4-huerta' },
   { zone: 'Zona B', name: 'sensor-5' },
   { zone: 'Zona C', name: 'sensor-1' },
+  { zone: 'Zona D', name: 'sensor-2' },
 ];
 
 const registrarZonas = async () => {
