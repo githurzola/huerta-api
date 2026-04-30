@@ -1116,9 +1116,9 @@
       Object.values(measurements).forEach(m => {
         const d = new Date(m.date);
         if (isNaN(d) || d.getTime() < cutoff) return;
-        const t = d.toLocaleTimeString('es-CO', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
-        if (m.zone === 'Zona A') zonaA.push({ t, temp: m.temp, hum: m.moisture });
-        if (m.zone === 'Zona B') zonaB.push({ t, temp: m.temp, hum: m.moisture });
+        const t = d.toLocaleString('es-CO', { timeZone: tz, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+        if (m.zone === 'Zona C') zonaA.push({ t, temp: m.temp, hum: m.moisture });
+        if (m.zone === 'Zona D') zonaB.push({ t, temp: m.temp, hum: m.moisture });
       });
 
       zonaA.sort((a, b) => a.t.localeCompare(b.t));
