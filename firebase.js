@@ -27,5 +27,6 @@ window._startDashboard = function () {
     allMeasurements = Object.values(val).map(m => ({ ...m, bat: m.bat || '3.3' }));
     updateSensorCards(val);
     updateCharts();
+    renderMonthlyTable();
   });
 };

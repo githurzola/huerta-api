@@ -59,8 +59,11 @@
       <div class="nav-right">
         <span id="nav-time"></span>
         <div class="live-badge">
-          <div class="live-dot"></div>En línea
+          <div class="live-dot"></div><span>En línea</span>
         </div>
+        <button class="btn-theme" id="theme-btn" onclick="toggleTheme()" title="Cambiar modo">
+          <!-- icon set by JS -->
+        </button>
         <button class="btn-logout" onclick="doLogout()">Salir</button>
       </div>
     </nav>
@@ -277,6 +280,56 @@
             <tbody id="table-body">
               <tr>
                 <td colspan="7" style="text-align:center;color:var(--text3);padding:2rem">Cargando datos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MONTHLY REPORT -->
+      <div class="monthly-toolbar">
+        <div class="monthly-toolbar-left">
+          <span class="section-title">Registro mensual de variables</span>
+          <div class="monthly-zone-tabs" id="monthly-zone-tabs">
+            <button class="monthly-zone-tab active" onclick="setMonthlyZone('ambas', this)">Ambas zonas</button>
+            <button class="monthly-zone-tab" onclick="setMonthlyZone('Zona C', this)">Zona C</button>
+            <button class="monthly-zone-tab" onclick="setMonthlyZone('Zona D', this)">Zona D</button>
+          </div>
+        </div>
+        <button class="btn-export" onclick="exportMonthlyCSV()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+          </svg>
+          Descargar registro
+        </button>
+      </div>
+
+      <div class="monthly-card">
+        <div class="monthly-head">
+          <span class="monthly-title">RESUMEN MES A MES</span>
+          <span class="foot-text" id="monthly-count">--</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table id="monthly-table">
+            <thead>
+              <tr>
+                <th>Mes</th>
+                <th>Zona</th>
+                <th>Temp. prom.</th>
+                <th>Temp. min.</th>
+                <th>Temp. máx.</th>
+                <th>Humedad prom.</th>
+                <th>Hum. min.</th>
+                <th>Hum. máx.</th>
+                <th>Conduct. prom.</th>
+                <th>Cond. min.</th>
+                <th>Cond. máx.</th>
+                <th>Mediciones</th>
+              </tr>
+            </thead>
+            <tbody id="monthly-tbody">
+              <tr>
+                <td colspan="12" style="text-align:center;color:var(--text3);padding:2rem">Cargando datos...</td>
               </tr>
             </tbody>
           </table>
