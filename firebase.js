@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
 import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js';
+import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBg29zZu3r23DzKAAoNPtv2_0AsWMFIDF8",
@@ -13,8 +14,20 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth(app);
 
 window._startDashboard = function () {
+  signInAnonymously(auth)
+    .then(() => {
+      console.log('Autenticado correctamente con Firebase');
+      cargarDatos();
+    })
+    .catch((error) => {
+      console.error('Error de autenticación:', error);
+    });
+};
+
+function cargarDatos() {
   initCharts();
   setInterval(() => {
     document.getElementById('nav-time').textContent = new Date().toLocaleTimeString('es-CO', { timeZone: 'America/Bogota' });
@@ -29,4 +42,4 @@ window._startDashboard = function () {
     updateCharts();
     renderMonthlyTable();
   });
-};
+}
