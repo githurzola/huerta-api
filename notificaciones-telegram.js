@@ -42,8 +42,12 @@ async function generarResumenDiario() {
   }
 
   const todas = Object.values(measurements);
-  const hoy = new Date();
-  hoy.setHours(0, 0, 0, 0);
+  const bogotaNowStr = new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' });
+  const bogotaNow = new Date(bogotaNowStr);
+  const y = bogotaNow.getFullYear();
+  const m = bogotaNow.getMonth();
+  const d = bogotaNow.getDate();
+  const hoy = new Date(Date.UTC(y, m, d, 5, 0, 0)); // medianoche de Colombia, expresada en UTC
 
   const deHoy = todas.filter(m => new Date(m.date) >= hoy);
 
