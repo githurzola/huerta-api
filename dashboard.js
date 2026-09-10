@@ -259,6 +259,8 @@ function updateSensorCards(measurements) {
   const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '--';
   const isRecent = d => d && (Date.now() - new Date(d).getTime()) < 2 * 60 * 60 * 1000;
 
+
+
   [['s1', zC[0]], ['s2', zD[0]]].forEach(([id, last]) => {
     if (!last) return;
     document.getElementById(`${id}-temp`).innerHTML = `${parseFloat(last.temp || 0).toFixed(1)}<span class="s-cell-unit"> °C</span>`;
@@ -289,6 +291,30 @@ function updateSensorCards(measurements) {
     document.getElementById('last-update').textContent = fmt(lastAll.date);
     document.getElementById('last-update-sensor').textContent = lastAll.sensor || lastAll.zone || '--';
   }
+}
+
+function updateRoomCard(data) {
+  const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '--';
+  const isRecent = d => d && (Date.now() - new Date(d).getTime()) < 30 * 60 * 1000;
+
+  if (data.temperatura != null) {
+    document.getElementById('room-temp').innerHTML = `${parseFloat(data.temperatura).toFixed(1)}<span class="s-cell-unit"> °C</span>`;
+  }
+  if (data.humedad != null) {
+    document.getElementById('room-hum').innerHTML = `${parseFloat(data.humedad).toFixed(1)}<span class="s-cell-unit"> %</span>`;
+  }
+  if (data.presencia !== null && data.presencia !== undefined) {
+    document.getElementById('room-presence').textContent = data.presencia === 1 ? 'Detectada' : 'Sin detección';
+  } else {
+    document.getElementById('room-presence').textContent = 'Sensor inactivo';
+  }
+
+  document.getElementById('room-time').textContent = `Actualizado: ${fmt(data.recibido)}`;
+
+  const badge = document.getElementById('room-badge');
+  const reciente = isRecent(data.recibido);
+  badge.textContent = reciente ? 'Activo' : 'Sin señal reciente';
+  badge.className = 'badge ' + (reciente ? 'badge-green' : 'badge-gray');
 }
 
 /* ── MONTHLY REPORT ── */
@@ -402,9 +428,9 @@ window.exportMonthlyCSV = function () {
       let resumen = '';
       if (arr.length > 0) {
         const parts = [];
-        if (temp.avg != null) parts.push(`Temp: prom ${f(temp.avg,1)}°C (min ${f(temp.min,1)} / max ${f(temp.max,1)})`);
-        if (hum.avg != null) parts.push(`Humedad: prom ${f(hum.avg,1)}% (min ${f(hum.min,1)} / max ${f(hum.max,1)})`);
-        if (cond.avg != null) parts.push(`Conductividad: prom ${f(cond.avg,0)} µS (min ${f(cond.min,0)} / max ${f(cond.max,0)})`);
+        if (temp.avg != null) parts.push(`Temp: prom ${f(temp.avg, 1)}°C (min ${f(temp.min, 1)} / max ${f(temp.max, 1)})`);
+        if (hum.avg != null) parts.push(`Humedad: prom ${f(hum.avg, 1)}% (min ${f(hum.min, 1)} / max ${f(hum.max, 1)})`);
+        if (cond.avg != null) parts.push(`Conductividad: prom ${f(cond.avg, 0)} µS (min ${f(cond.min, 0)} / max ${f(cond.max, 0)})`);
         resumen = parts.join('. ');
       } else {
         resumen = 'Sin datos';

@@ -41,5 +41,10 @@ function cargarDatos() {
     updateSensorCards(val);
     updateCharts();
     renderMonthlyTable();
+
+    onValue(ref(db, 'MonitoreoCuarto'), snap => {
+      const val = snap.val();
+      if (val) updateRoomCard(val);
+    });
   });
 }

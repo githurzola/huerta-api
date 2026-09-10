@@ -180,6 +180,36 @@
         </div>
       </div>
 
+      <div class="section-title" style="margin: 1.5rem 0 0.75rem">Monitoreo del cuarto de control</div>
+      <div class="sensor-row" style="grid-template-columns: 1fr">
+        <div class="sensor-card">
+          <div class="sensor-head">
+            <div>
+              <div class="sensor-name">Cuarto de control</div>
+              <div class="sensor-zone">Sensor ambiental (ThingSpeak)</div>
+            </div>
+            <span class="badge badge-gray" id="room-badge">Sin datos</span>
+          </div>
+          <div class="sensor-grid">
+            <div class="s-cell">
+              <div class="s-cell-label">Temperatura</div>
+              <div class="s-cell-val" id="room-temp">--<span class="s-cell-unit"> °C</span></div>
+            </div>
+            <div class="s-cell">
+              <div class="s-cell-label">Humedad</div>
+              <div class="s-cell-val" id="room-hum">--<span class="s-cell-unit"> %</span></div>
+            </div>
+            <div class="s-cell">
+              <div class="s-cell-label">Presencia</div>
+              <div class="s-cell-val" id="room-presence">--</div>
+            </div>
+          </div>
+          <div class="sensor-foot">
+            <span class="s-time" id="room-time">Sin datos</span>
+          </div>
+        </div>
+      </div>
+
       <!-- CHARTS TOOLBAR -->
       <div class="chart-toolbar">
         <div class="chart-toolbar-left">
