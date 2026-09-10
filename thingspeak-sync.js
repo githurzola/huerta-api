@@ -20,10 +20,10 @@ async function guardarMonitoreoCuarto() {
 
     // field1 = temperatura ambiente del cuarto (°C)
     // field2 = humedad ambiente del cuarto (%)
-    // field3 = sensor infrarrojo de presencia (1 = detectado, 0 = sin detección)
+    // field6 = sensor infrarrojo de presencia (1 = detectado, 0 = sin detección)
     const temperatura = data.field1;
     const humedad = data.field2;
-    const presencia = data.field3;
+    const presencia = data.field6;
 
     if (temperatura === null && humedad === null && presencia === null) {
       console.log('[thingspeak] La última lectura no trae ningún valor.');
