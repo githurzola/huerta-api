@@ -14,6 +14,8 @@ app.use(cors())
 const controller = require("./controller");
 const utils = require("./utils");
 const notificaciones = require("./notificaciones-telegram");
+const thingspeakSync = require("./thingspeak-sync");
+
 
 app.get('/ping', (req, res) => {
   res.status(200).json({ status: 'Success', message: 'Pong' });
@@ -42,7 +44,7 @@ app.get("/register-hardcoded", async (req, res) => {
 });
 
 notificaciones.iniciarNotificacionesDiarias();
-
+thingspeakSync.iniciarSincronizacionThingSpeak();
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
