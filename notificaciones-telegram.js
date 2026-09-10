@@ -42,14 +42,9 @@ async function generarResumenDiario() {
   }
 
   const todas = Object.values(measurements);
-  const bogotaNowStr = new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' });
-  const bogotaNow = new Date(bogotaNowStr);
-  const y = bogotaNow.getFullYear();
-  const m = bogotaNow.getMonth();
-  const d = bogotaNow.getDate();
-  const hoy = new Date(Date.UTC(y, m, d, 5, 0, 0)); // medianoche de Colombia, expresada en UTC
+  const hace24h = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
-  const deHoy = todas.filter(m => new Date(m.date) >= hoy);
+  const deHoy = todas.filter(m => new Date(m.date) >= hace24h);
 
   const zonas = {};
   deHoy.forEach(m => {
@@ -57,8 +52,8 @@ async function generarResumenDiario() {
     zonas[m.zone].push(m);
   });
 
-  let mensaje = `🌱 <b>Resumen diario — Huerta Garzones</b>\n`;
-  mensaje += `📅 ${new Date().toLocaleDateString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: 'long', year: 'numeric' })}\n\n`;
+  let mensaje = `🌱 <b>Resumen — Huerta Garzones (últimas 24h)</b>\n`;
+  mensaje += `📅 ${new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}\n\n`;
 
   if (Object.keys(zonas).length === 0) {
     mensaje += '⚠️ No se registraron datos nuevos el día de hoy. Revisa el gateway y los sensores.\n';
