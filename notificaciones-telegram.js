@@ -38,7 +38,7 @@ async function generarResumenDiario() {
   const measurements = await services.getMeasurements();
 
   if (!measurements) {
-    return '⚠️ <b>Huerta Garzones</b>\n\nNo hay mediciones registradas hoy. Revisa si los sensores están enviando datos.';
+    return 'ADVERTENCIA: <b>Huerta Garzones</b>\n\nNo hay mediciones registradas hoy. Revisa si los sensores estan enviando datos.';
   }
 
   const todas = Object.values(measurements);
@@ -52,11 +52,11 @@ async function generarResumenDiario() {
     zonas[m.zone].push(m);
   });
 
-  let mensaje = `🌱 <b>Resumen — Huerta Garzones (últimas 24h)</b>\n`;
-  mensaje += `📅 ${new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}\n\n`;
+  let mensaje = `<b>Resumen — Huerta Garzones (ultimas 24h)</b>\n`;
+  mensaje += `${new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}\n\n`;
 
   if (Object.keys(zonas).length === 0) {
-    mensaje += '⚠️ No se registraron datos nuevos el día de hoy. Revisa el gateway y los sensores.\n';
+    mensaje += 'ADVERTENCIA: No se registraron datos nuevos el dia de hoy. Revisa el gateway y los sensores.\n';
   } else {
     for (const [zona, mediciones] of Object.entries(zonas)) {
       const temps = mediciones.map(m => parseFloat(m.temp)).filter(n => !isNaN(n));
@@ -67,31 +67,31 @@ async function generarResumenDiario() {
       const humProm = hums.length ? (hums.reduce((a, b) => a + b) / hums.length).toFixed(1) : '--';
       const humMin = hums.length ? Math.min(...hums).toFixed(1) : '--';
 
-      mensaje += `<b>📍 ${zona}</b>\n`;
-      mensaje += `   🌡️ Temp. promedio: ${tempProm}°C\n`;
-      mensaje += `   💧 Humedad promedio: ${humProm}% (mín: ${humMin}%)\n`;
-      mensaje += `   🕐 Última lectura: ${formatearFecha(ultima.date)}\n`;
-      mensaje += `   📊 Mediciones hoy: ${mediciones.length}\n\n`;
+      mensaje += `<b>${zona}</b>\n`;
+      mensaje += `   Temp. promedio: ${tempProm}°C\n`;
+      mensaje += `   Humedad promedio: ${humProm}% (min: ${humMin}%)\n`;
+      mensaje += `   Ultima lectura: ${formatearFecha(ultima.date)}\n`;
+      mensaje += `   Mediciones hoy: ${mediciones.length}\n\n`;
 
       if (hums.length && parseFloat(humMin) < 20) {
-        mensaje += `   ⚠️ Humedad baja detectada en esta zona\n\n`;
+        mensaje += `   ADVERTENCIA: Humedad baja detectada en esta zona\n\n`;
       }
     }
   }
 
-  // Últimas 2 horas — para saber si algo dejó de reportar
+  // Ultimas 2 horas — para saber si algo dejo de reportar
   const hace2h = new Date(Date.now() - 2 * 60 * 60 * 1000);
   const activosReciente = new Set(
     todas.filter(m => new Date(m.date) >= hace2h).map(m => m.zone)
   );
-  const ZONAS_ACTIVAS = ['Zona C', 'Zona D']; // ajusta aquí cuando agregues o quites sensores
+  const ZONAS_ACTIVAS = ['Zona C', 'Zona D']; // ajusta aqui cuando agregues o quites sensores
   const todasLasZonas = new Set(ZONAS_ACTIVAS);
   const sinReportar = [...todasLasZonas].filter(z => !activosReciente.has(z));
 
   if (sinReportar.length > 0) {
-    mensaje += `🔴 <b>Sin datos recientes (más de 2h):</b> ${sinReportar.join(', ')}\n`;
+    mensaje += `ALERTA: <b>Sin datos recientes (mas de 2h):</b> ${sinReportar.join(', ')}\n`;
   } else {
-    mensaje += `✅ Todos los sensores reportando con normalidad.`;
+    mensaje += `OK: Todos los sensores reportando con normalidad.`;
   }
 
   return mensaje;

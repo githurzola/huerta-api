@@ -1,13 +1,13 @@
 require('dotenv').config();
 const admin = require('firebase-admin');
 
-// 🔍 DEBUG (puedes quitarlo después)
+// DEBUG (puedes quitarlo después)
 console.log("ENV TEST:");
 console.log(process.env.FIREBASE_PROJECT_ID);
 console.log(process.env.FIREBASE_CLIENT_EMAIL);
 console.log(process.env.FIREBASE_PRIVATE_KEY ? "KEY OK" : "NO KEY");
 
-// 🔥 Inicializar Firebase correctamente
+// Inicializar Firebase correctamente
 if (!admin.apps.length) {
   if (!process.env.FIREBASE_PRIVATE_KEY) {
     throw new Error("FIREBASE_PRIVATE_KEY no está definida en el .env");

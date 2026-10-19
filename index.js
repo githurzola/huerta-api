@@ -15,6 +15,7 @@ const controller = require("./controller");
 const utils = require("./utils");
 const notificaciones = require("./notificaciones-telegram");
 const thingspeakSync = require("./thingspeak-sync");
+const alertaGateway = require("./alerta-gateway");
 
 
 app.get('/ping', (req, res) => {
@@ -45,6 +46,7 @@ app.get("/register-hardcoded", async (req, res) => {
 
 notificaciones.iniciarNotificacionesDiarias();
 thingspeakSync.iniciarSincronizacionThingSpeak();
+alertaGateway.iniciarAlertaGateway();
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

@@ -303,12 +303,6 @@ function updateRoomCard(data) {
   if (data.humedad != null) {
     document.getElementById('room-hum').innerHTML = `${parseFloat(data.humedad).toFixed(1)}<span class="s-cell-unit"> %</span>`;
   }
-  if (data.presencia !== null && data.presencia !== undefined) {
-    document.getElementById('room-presence').textContent = data.presencia === 1 ? 'Detectada' : 'Sin detección';
-  } else {
-    document.getElementById('room-presence').textContent = 'Sensor inactivo';
-  }
-
   document.getElementById('room-time').textContent = `Actualizado: ${fmt(data.recibido)}`;
 
   const badge = document.getElementById('room-badge');

@@ -20,25 +20,22 @@ async function guardarMonitoreoCuarto() {
 
     // field1 = temperatura ambiente del cuarto (°C)
     // field2 = humedad ambiente del cuarto (%)
-    // field6 = sensor infrarrojo de presencia (1 = detectado, 0 = sin detección)
     const temperatura = data.field1;
     const humedad = data.field2;
-    const presencia = data.field6;
 
-    if (temperatura === null && humedad === null && presencia === null) {
-      console.log('[thingspeak] La última lectura no trae ningún valor.');
+    if (temperatura === null && humedad === null) {
+      console.log('[thingspeak] La ultima lectura no trae ningun valor.');
       return;
     }
 
     await db.ref('MonitoreoCuarto').set({
       temperatura: temperatura !== null ? parseFloat(temperatura) : null,
       humedad: humedad !== null ? parseFloat(humedad) : null,
-      presencia: presencia !== null ? parseInt(presencia) : null,
       fecha: data.created_at,
       recibido: new Date().toISOString(),
     });
 
-    console.log(`[thingspeak] Cuarto -> Temp: ${temperatura}°C | Humedad: ${humedad}% | Presencia: ${presencia}`);
+    console.log(`[thingspeak] Cuarto -> Temp: ${temperatura}°C | Humedad: ${humedad}%`);
   } catch (error) {
     console.error('[thingspeak] Error al consultar/guardar:', error.message);
   }
