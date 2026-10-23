@@ -122,6 +122,13 @@ const getLastIrrigation = async () => {
   return sorted[0] || null;
 };
 
+// ================= CONFIG =================
+
+const getConfigRiego = async () => {
+  const snapshot = await db.ref('Config/riegoAutomatico').once('value');
+  return snapshot.val();
+};
+
 // ================= RELACIONES =================
 
 const getZoneBySensorName = async (sensorName) => {
@@ -167,5 +174,6 @@ module.exports = {
   updateIrrigation,
   deleteIrrigation,
   getLastIrrigation,
+  getConfigRiego,
   getZoneBySensorName,
 };

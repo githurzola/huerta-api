@@ -4,6 +4,7 @@ const admin = require('firebase-admin');
 
 const CHANNEL_ID = process.env.THINGSPEAK_CHANNEL_ID;
 const READ_API_KEY = process.env.THINGSPEAK_READ_API_KEY;
+const UMBRAL_DATO_VIEJO_MIN = 30;
 
 const db = admin.database();
 
@@ -28,6 +29,7 @@ async function guardarMonitoreoCuarto() {
       return;
     }
 
+    // fecha = momento en que el ESP32 publico el dato en ThingSpeak (no cuando lo leimos)
     await db.ref('MonitoreoCuarto').set({
       temperatura: temperatura !== null ? parseFloat(temperatura) : null,
       humedad: humedad !== null ? parseFloat(humedad) : null,
@@ -36,6 +38,11 @@ async function guardarMonitoreoCuarto() {
     });
 
     console.log(`[thingspeak] Cuarto -> Temp: ${temperatura}°C | Humedad: ${humedad}%`);
+
+    const antiguedadMin = Math.round((Date.now() - new Date(data.created_at).getTime()) / 60000);
+    if (antiguedadMin > UMBRAL_DATO_VIEJO_MIN) {
+      console.log(`[thingspeak] ADVERTENCIA: el ultimo dato del cuarto tiene ${antiguedadMin} min (created_at ${data.created_at}). El ESP32 podria estar sin señal.`);
+    }
   } catch (error) {
     console.error('[thingspeak] Error al consultar/guardar:', error.message);
   }

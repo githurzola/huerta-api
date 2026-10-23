@@ -252,16 +252,77 @@ function updateTable(filtered) {
   }).join('');
 }
 
+/* ── ESTADO POR ANTIGUEDAD ── */
+
+const UMBRAL_CUARTO_MIN = 30;
+const UMBRAL_SENSOR_MIN = 150;
+
+// Ultimos datos recibidos, para recalcular el estado aunque no llegue nada nuevo
+let ultimosSensores = [];
+let ultimoCuarto = null;
+
+function minutosDesde(d) {
+  if (!d) return Infinity;
+  const t = new Date(d).getTime();
+  return isNaN(t) ? Infinity : (Date.now() - t) / 60000;
+}
+
+function esReciente(d, umbralMin) {
+  return minutosDesde(d) <= umbralMin;
+}
+
+function formatoHace(d) {
+  const min = Math.floor(minutosDesde(d));
+  if (!isFinite(min)) return 'desconocido';
+  if (min < 1) return 'menos de 1 min';
+  if (min < 60) return `${min} min`;
+  const h = Math.floor(min / 60);
+  if (h < 48) return min % 60 ? `${h} h ${min % 60} min` : `${h} h`;
+  return `${Math.floor(h / 24)} días`;
+}
+
+function setBadge(badge, activo) {
+  badge.textContent = activo ? 'Activo' : 'Sin señal';
+  badge.className = 'badge ' + (activo ? 'badge-green' : 'badge-gray');
+}
+
+function actualizarEstadoSensores() {
+  ultimosSensores.forEach(([id, last]) => {
+    if (!last) return;
+    setBadge(document.getElementById(`${id}-badge`), esReciente(last.date, UMBRAL_SENSOR_MIN));
+  });
+  const active = ultimosSensores.filter(([, m]) => m && esReciente(m.date, UMBRAL_SENSOR_MIN)).length;
+  document.getElementById('sensors-active').textContent = active;
+}
+
+function actualizarEstadoCuarto() {
+  if (!ultimoCuarto) return;
+  const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '--';
+  const activo = esReciente(ultimoCuarto.fecha, UMBRAL_CUARTO_MIN);
+
+  setBadge(document.getElementById('room-badge'), activo);
+  document.getElementById('room-time').textContent = activo
+    ? `Actualizado: ${fmt(ultimoCuarto.fecha)}`
+    : `Último dato: hace ${formatoHace(ultimoCuarto.fecha)}`;
+  document.getElementById('room-temp').closest('.sensor-grid').style.opacity = activo ? '' : '0.45';
+}
+
+function recalcularEstados() {
+  actualizarEstadoSensores();
+  actualizarEstadoCuarto();
+}
+
+setInterval(recalcularEstados, 60 * 1000);
+
 function updateSensorCards(measurements) {
   const all = Object.values(measurements);
   const zC = all.filter(m => m.zone === 'Zona C').sort((a, b) => new Date(b.date) - new Date(a.date));
   const zD = all.filter(m => m.zone === 'Zona D').sort((a, b) => new Date(b.date) - new Date(a.date));
   const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '--';
-  const isRecent = d => d && (Date.now() - new Date(d).getTime()) < 2 * 60 * 60 * 1000;
 
+  ultimosSensores = [['s1', zC[0]], ['s2', zD[0]]];
 
-
-  [['s1', zC[0]], ['s2', zD[0]]].forEach(([id, last]) => {
+  ultimosSensores.forEach(([id, last]) => {
     if (!last) return;
     document.getElementById(`${id}-temp`).innerHTML = `${parseFloat(last.temp || 0).toFixed(1)}<span class="s-cell-unit"> °C</span>`;
     document.getElementById(`${id}-hum`).innerHTML = `${parseFloat(last.moisture || 0).toFixed(1)}<span class="s-cell-unit"> %</span>`;
@@ -270,9 +331,6 @@ function updateSensorCards(measurements) {
     document.getElementById(`${id}-time`).textContent = `Actualizado: ${fmt(last.date)}`;
     const pct = Math.min(100, ((parseFloat(last.bat || 3.3) - 2.8) / (3.6 - 2.8)) * 100);
     document.getElementById(`${id}-batbar`).style.width = pct + '%';
-    const badge = document.getElementById(`${id}-badge`);
-    badge.textContent = isRecent(last.date) ? 'Activo' : 'Sin señal reciente';
-    badge.className = 'badge ' + (isRecent(last.date) ? 'badge-green' : 'badge-gray');
   });
 
   const temps = [zC[0]?.temp, zD[0]?.temp].filter(Boolean).map(Number);
@@ -281,9 +339,11 @@ function updateSensorCards(measurements) {
   if (temps.length) document.getElementById('avg-temp').innerHTML = `${(temps.reduce((a, b) => a + b) / temps.length).toFixed(1)}<span class="stat-unit"> °C</span>`;
   if (hums.length) document.getElementById('avg-hum').innerHTML = `${(hums.reduce((a, b) => a + b) / hums.length).toFixed(1)}<span class="stat-unit"> %</span>`;
   if (conds.length) document.getElementById('avg-cond').innerHTML = `${Math.round(conds.reduce((a, b) => a + b) / conds.length)}<span class="stat-unit"> µS</span>`;
+  const subPromedio = n => n ? `Última lectura de ${n} ${n === 1 ? 'sensor' : 'sensores'}` : 'Sin datos';
+  document.getElementById('avg-temp-sub').textContent = subPromedio(temps.length);
+  document.getElementById('avg-hum-sub').textContent = subPromedio(hums.length);
 
-  const active = [zC[0], zD[0]].filter(m => m && isRecent(m.date)).length;
-  document.getElementById('sensors-active').textContent = active;
+  actualizarEstadoSensores();
   document.getElementById('meas-total').textContent = all.length;
 
   const lastAll = all.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
@@ -294,8 +354,7 @@ function updateSensorCards(measurements) {
 }
 
 function updateRoomCard(data) {
-  const fmt = d => d ? new Date(d).toLocaleString('es-CO', { timeZone: 'America/Bogota', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '--';
-  const isRecent = d => d && (Date.now() - new Date(d).getTime()) < 30 * 60 * 1000;
+  ultimoCuarto = data;
 
   if (data.temperatura != null) {
     document.getElementById('room-temp').innerHTML = `${parseFloat(data.temperatura).toFixed(1)}<span class="s-cell-unit"> °C</span>`;
@@ -303,12 +362,8 @@ function updateRoomCard(data) {
   if (data.humedad != null) {
     document.getElementById('room-hum').innerHTML = `${parseFloat(data.humedad).toFixed(1)}<span class="s-cell-unit"> %</span>`;
   }
-  document.getElementById('room-time').textContent = `Actualizado: ${fmt(data.recibido)}`;
 
-  const badge = document.getElementById('room-badge');
-  const reciente = isRecent(data.recibido);
-  badge.textContent = reciente ? 'Activo' : 'Sin señal reciente';
-  badge.className = 'badge ' + (reciente ? 'badge-green' : 'badge-gray');
+  actualizarEstadoCuarto();
 }
 
 /* ── MONTHLY REPORT ── */

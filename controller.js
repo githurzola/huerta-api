@@ -52,7 +52,16 @@ const uplink = async (request, response) => {
     const colombiaHour = (utcHour + 19) % 24;
     console.log('La hora en Colombia es:', colombiaHour);
 
-    if (colombiaHour >= 11 && colombiaHour < 14) {
+    // Riego por rotacion de zonas: solo si Config/riegoAutomatico esta activo en modo "inteligente"
+    const enVentanaRiego = colombiaHour >= 11 && colombiaHour < 14;
+    const configRiego = enVentanaRiego ? await services.getConfigRiego() : null;
+    const riegoInteligente = configRiego?.activo === true && configRiego?.modo === "inteligente";
+
+    if (enVentanaRiego && !riegoInteligente) {
+      console.log("No se crea irrigación: riego automatico no esta activo en modo inteligente");
+    }
+
+    if (enVentanaRiego && riegoInteligente) {
       const zonasOrden = ["Zona A", "Zona B", "Zona C", "Zona D", "Zona E"];
 
       const lastIrrigation = await services.getLastIrrigation();
